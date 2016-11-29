@@ -124,7 +124,12 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
                 if (data.getData().getChannel_groups().get(position).getId() == 2) {
 
                     holderDown.tvCgBottomDown.setText(data.getData().getChannel_groups().get(position).getName());
-                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(0).getCover_image_url()).into(holderDown.ivCgBottomDown);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(0).getCover_image_url()).into(holderDown.ivCgBottomDownOne);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(1).getCover_image_url()).into(holderDown.ivCgBottomDownTwo);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(2).getCover_image_url()).into(holderDown.ivCgBottomDownThree);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(3).getCover_image_url()).into(holderDown.ivCgBottomDownFour);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(4).getCover_image_url()).into(holderDown.ivCgBottomDownFive);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(5).getCover_image_url()).into(holderDown.ivCgBottomDownSix);
                 }
 
                 break;
@@ -186,12 +191,17 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
     class MyBottomDownViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvCgBottomDown;
-        private ImageView ivCgBottomDown;
+        private ImageView ivCgBottomDownOne, ivCgBottomDownTwo, ivCgBottomDownThree, ivCgBottomDownFour, ivCgBottomDownFive, ivCgBottomDownSix;
 
         public MyBottomDownViewHolder(View itemView) {
             super(itemView);
             tvCgBottomDown = (TextView) itemView.findViewById(R.id.tv_category_bottom_down);
-            ivCgBottomDown = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down);
+            ivCgBottomDownOne = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down_one);
+            ivCgBottomDownTwo = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down_two);
+            ivCgBottomDownThree = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down_three);
+            ivCgBottomDownFour = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down_four);
+            ivCgBottomDownFive = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down_five);
+            ivCgBottomDownSix = (ImageView) itemView.findViewById(R.id.iv_category_bottom_down_six);
         }
     }
 }

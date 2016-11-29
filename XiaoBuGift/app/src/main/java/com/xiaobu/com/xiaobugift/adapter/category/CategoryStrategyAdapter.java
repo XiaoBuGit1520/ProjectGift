@@ -43,17 +43,6 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    /* 设置不同行布局View的个数 */
-    private int mHeaderCount = 1;//上方View的个数
-    private int mBottomCount = 1;//下方View的个数
-
-    /* 总内容长度 */
-//    public int getContentItemCount() {
-//
-//        return dataHead != null && dataBottom != null ? (dataHead.getData().getColumns().size() + dataBottom.getData().getChannel_groups().size()) : 0;
-//
-//    }
-
     /**
      * getItemViewType()
      * 获取每一行的类型
@@ -63,15 +52,6 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
      */
     @Override
     public int getItemViewType(int position) {
-
-        //int dataItemCount = getContentItemCount();
-
-//        if (mHeaderCount != 0 && position < mHeaderCount) {
-//
-//            return TYPE_CATEGORY_HEADER;
-//
-//        } else
-//            return TYPE_CATEGORY_BOTTOM;
 
         if (position == 0) {
             return TYPE_CATEGORY_HEADER;
@@ -157,17 +137,16 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
                 holderBottom.mRecyclerViewBottom.setAdapter(adapterBottom);
 
                 // 设置rv manager(每行2个Item)
-                GridLayoutManager managerBottom = new GridLayoutManager(mContext, 2);
+                //GridLayoutManager managerBottom = new GridLayoutManager(mContext, 2);
+                LinearLayoutManager managerBottom = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
                 holderBottom.mRecyclerViewBottom.setLayoutManager(managerBottom);
 
                 break;
         }
 
-
     }
 
     /**
-     *
      * @return
      */
     @Override
