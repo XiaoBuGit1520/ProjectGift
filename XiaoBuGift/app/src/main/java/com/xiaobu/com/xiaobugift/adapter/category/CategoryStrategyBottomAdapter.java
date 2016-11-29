@@ -17,8 +17,6 @@ import com.xiaobu.com.xiaobugift.bean.category.CategoryStrategyBottomData;
  * 分类Fragment--攻略Tab--尾部rv适配器
  */
 
-// 注释注释注释
-// 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
 public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
 
     private Context mContext;

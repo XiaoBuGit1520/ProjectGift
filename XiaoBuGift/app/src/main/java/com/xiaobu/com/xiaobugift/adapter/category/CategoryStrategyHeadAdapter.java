@@ -16,7 +16,7 @@ import com.xiaobu.com.xiaobugift.bean.category.CategoryStrategyHeadData;
  * Created by xiaoBu on 16/11/28.
  * 分类Fragment--攻略Tab--头部rv适配器
  */
-
+// 困死了
 public class CategoryStrategyHeadAdapter extends RecyclerView.Adapter<CategoryStrategyHeadAdapter.MyHeaderViewHolder> {
 
     private Context mContext;
