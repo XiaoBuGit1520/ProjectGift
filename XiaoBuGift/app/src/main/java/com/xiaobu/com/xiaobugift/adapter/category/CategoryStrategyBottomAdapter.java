@@ -79,6 +79,7 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
 
         switch (type) {
 
+            // 品类
             case TYPE_CATEGORY_BOTTOM_UP:
 
                 // 定义我们的缓存类对象并强转holder
@@ -87,31 +88,44 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
                 if (data.getData().getChannel_groups().get(position).getId() == 5) {
 
                     holderUp.tvCgBottomUp.setText(data.getData().getChannel_groups().get(position).getName());
-                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(position).getCover_image_url()).into(holderUp.ivCgBottomUp);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(0).getCover_image_url()).into(holderUp.ivCgBottomUpOne);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(1).getCover_image_url()).into(holderUp.ivCgBottomUpTwo);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(2).getCover_image_url()).into(holderUp.ivCgBottomUpThree);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(3).getCover_image_url()).into(holderUp.ivCgBottomUpFour);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(4).getCover_image_url()).into(holderUp.ivCgBottomUpFive);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(0).getChannels().get(5).getCover_image_url()).into(holderUp.ivCgBottomUpSix);
                 }
 
                 break;
 
+            // 生活
             case TYPE_CATEGORY_BOTTOM_MIDDLE:
 
                 MyBottomMidViewHolder holderMid = (MyBottomMidViewHolder) holder;
 
                 if (data.getData().getChannel_groups().get(position).getId() == 1) {
 
-                    holderMid.tvCgBottomMid.setText(data.getData().getChannel_groups().get(1).getName());
-                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(position).getCover_image_url()).into(holderMid.ivCgBottomMid);
-
+                    holderMid.tvCgBottomMid.setText(data.getData().getChannel_groups().get(position).getName());
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(0).getCover_image_url()).into(holderMid.ivCgBottomMidOne);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(1).getCover_image_url()).into(holderMid.ivCgBottomMidTwo);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(2).getCover_image_url()).into(holderMid.ivCgBottomMidThree);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(3).getCover_image_url()).into(holderMid.ivCgBottomMidFour);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(4).getCover_image_url()).into(holderMid.ivCgBottomMidFive);
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(1).getChannels().get(5).getCover_image_url()).into(holderMid.ivCgBottomMidSix);
                 }
 
                 break;
 
+            // 对象
             case TYPE_CATEGORY_BOTTOM_DOWN:
 
                 MyBottomDownViewHolder holderDown = (MyBottomDownViewHolder) holder;
 
+                if (data.getData().getChannel_groups().get(position).getId() == 2) {
 
-                holderDown.tvCgBottomDown.setText(data.getData().getChannel_groups().get(2).getName());
-                Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(position).getCover_image_url()).into(holderDown.ivCgBottomDown);
+                    holderDown.tvCgBottomDown.setText(data.getData().getChannel_groups().get(position).getName());
+                    Picasso.with(mContext).load(data.getData().getChannel_groups().get(2).getChannels().get(0).getCover_image_url()).into(holderDown.ivCgBottomDown);
+                }
 
                 break;
         }
@@ -120,8 +134,7 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        //return data != null ? data.getData().getChannel_groups().size() : 0;
-        return 3;
+        return data != null ? data.getData().getChannel_groups().size() : 0;
     }
 
     /**
@@ -131,12 +144,17 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
     class MyBottomUpViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvCgBottomUp;
-        private ImageView ivCgBottomUp;
+        private ImageView ivCgBottomUpOne, ivCgBottomUpTwo, ivCgBottomUpThree, ivCgBottomUpFour, ivCgBottomUpFive, ivCgBottomUpSix;
 
         public MyBottomUpViewHolder(View itemView) {
             super(itemView);
             tvCgBottomUp = (TextView) itemView.findViewById(R.id.tv_category_bottom_up);
-            ivCgBottomUp = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up);
+            ivCgBottomUpOne = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_one);
+            ivCgBottomUpTwo = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_two);
+            ivCgBottomUpThree = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_three);
+            ivCgBottomUpFour = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_four);
+            ivCgBottomUpFive = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_five);
+            ivCgBottomUpSix = (ImageView) itemView.findViewById(R.id.iv_category_bottom_six);
         }
     }
 
@@ -147,12 +165,17 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
     class MyBottomMidViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvCgBottomMid;
-        private ImageView ivCgBottomMid;
+        private ImageView ivCgBottomMidOne, ivCgBottomMidTwo, ivCgBottomMidThree, ivCgBottomMidFour, ivCgBottomMidFive, ivCgBottomMidSix;
 
         public MyBottomMidViewHolder(View itemView) {
             super(itemView);
             tvCgBottomMid = (TextView) itemView.findViewById(R.id.tv_category_bottom_mid);
-            ivCgBottomMid = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid);
+            ivCgBottomMidOne = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid_one);
+            ivCgBottomMidTwo = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid_two);
+            ivCgBottomMidThree = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid_three);
+            ivCgBottomMidFour = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid_four);
+            ivCgBottomMidFive = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid_five);
+            ivCgBottomMidSix = (ImageView) itemView.findViewById(R.id.iv_category_bottom_mid_six);
         }
     }
 
