@@ -53,7 +53,7 @@ public class CategoryFragment extends BaseFragment {
         tabLayout.setupWithViewPager(viewPager);
         // TabLayout设置字体颜色
         tabLayout.setTabTextColors(Color.argb(255, 50, 30, 30), Color.argb(255, 255, 45, 71));
-
+        //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
 
     }

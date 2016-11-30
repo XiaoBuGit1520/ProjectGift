@@ -102,8 +102,8 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof NormalViewHolder) {
 
             ((NormalViewHolder) holder).tvName.setText(data.getData().getItems().get(position - mHeaderCount).getName());
-            ((NormalViewHolder) holder).tvPrice.setText("¥ " + data.getData().getItems().get(position - mHeaderCount).getPrice());
-            ((NormalViewHolder) holder).tvShortDescription.setText(data.getData().getItems().get(position - mHeaderCount).getDescription());
+            ((NormalViewHolder) holder).tvPrice.setText(" ¥ " + data.getData().getItems().get(position - mHeaderCount).getPrice());
+            ((NormalViewHolder) holder).tvShortDescription.setText(data.getData().getItems().get(position - mHeaderCount).getShort_description());
 
             Picasso.with(mContext).load(data.getData().getItems().get(position - mHeaderCount).getCover_image_url()).into(((NormalViewHolder) holder).ivCoverImageUrl);
 

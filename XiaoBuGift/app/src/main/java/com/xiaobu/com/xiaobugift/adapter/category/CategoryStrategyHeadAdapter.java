@@ -35,7 +35,7 @@ public class CategoryStrategyHeadAdapter extends RecyclerView.Adapter<CategorySt
     public MyHeaderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         // 加载行布局
-        View mViewHead = LayoutInflater.from(mContext).inflate(R.layout.item_category_head, parent, false);
+        View mViewHead = LayoutInflater.from(mContext).inflate(R.layout.item_categoty_head_hor, parent, false);
 
         MyHeaderViewHolder holder = new MyHeaderViewHolder(mViewHead);
 

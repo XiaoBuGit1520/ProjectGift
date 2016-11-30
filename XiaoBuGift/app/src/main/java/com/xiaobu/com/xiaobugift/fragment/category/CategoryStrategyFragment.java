@@ -64,7 +64,6 @@ public class CategoryStrategyFragment extends BaseFragment {
                 CategoryStrategyHeadData data = gson.fromJson(response, CategoryStrategyHeadData.class);
 
                 /* 适配器 */
-
                 mAdapter.setDataHead(data);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -94,7 +93,6 @@ public class CategoryStrategyFragment extends BaseFragment {
                 CategoryStrategyBottomData data = gson.fromJson(response, CategoryStrategyBottomData.class);
 
                 /* 适配器 */
-
                 mAdapter.setDataBottom(data);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

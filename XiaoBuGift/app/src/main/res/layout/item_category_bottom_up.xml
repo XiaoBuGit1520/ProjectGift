@@ -12,21 +12,26 @@
         <TextView
             android:id="@+id/tv_category_bottom_up"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_category_bottom_up_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="查看全部"/>
+            android:layout_marginRight="3dp"
+            android:text="查看全部"
+            android:textSize="12sp"/>
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="13dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -34,7 +39,7 @@
             android:id="@+id/iv_category_bottom_up_one"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="7dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:scaleType="fitXY"/>
 
@@ -42,7 +47,7 @@
             android:id="@+id/iv_category_bottom_up_two"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:scaleType="fitXY"/>
 
@@ -51,7 +56,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="13dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -59,6 +66,7 @@
             android:id="@+id/iv_category_bottom_up_three"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:scaleType="fitXY"/>
 
@@ -66,16 +74,18 @@
             android:id="@+id/iv_category_bottom_up_four"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:scaleType="fitXY"/>
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="13dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -83,18 +93,18 @@
             android:id="@+id/iv_category_bottom_up_five"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
-
             android:scaleType="fitXY"/>
 
         <ImageView
-            android:id="@+id/iv_category_bottom_six"
+            android:id="@+id/iv_category_bottom_up_six"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:scaleType="fitXY"/>
 
     </LinearLayout>
-
 
 </LinearLayout>

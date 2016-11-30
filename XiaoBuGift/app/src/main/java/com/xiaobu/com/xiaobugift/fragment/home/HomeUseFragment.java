@@ -34,7 +34,6 @@ public class HomeUseFragment extends BaseFragment {
         return R.layout.fragment_homeuse;
     }
 
-
     @Override
     public void initView(View view) {
 

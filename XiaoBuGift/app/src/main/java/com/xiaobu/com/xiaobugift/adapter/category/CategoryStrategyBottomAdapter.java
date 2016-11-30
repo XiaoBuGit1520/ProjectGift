@@ -159,7 +159,7 @@ public class CategoryStrategyBottomAdapter extends RecyclerView.Adapter {
             ivCgBottomUpThree = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_three);
             ivCgBottomUpFour = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_four);
             ivCgBottomUpFive = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_five);
-            ivCgBottomUpSix = (ImageView) itemView.findViewById(R.id.iv_category_bottom_six);
+            ivCgBottomUpSix = (ImageView) itemView.findViewById(R.id.iv_category_bottom_up_six);
         }
     }
 
