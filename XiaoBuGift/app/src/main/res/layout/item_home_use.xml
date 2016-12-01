@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_home_use_author_avatar_url"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="15dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,13 +22,13 @@
             android:id="@+id/tv_home_use_author_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="小C" />
+            android:text="小C"/>
 
         <TextView
             android:id="@+id/tv_home_use_author_introduction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="礼物界的老司机" />
+            android:text="礼物界的老司机"/>
 
     </LinearLayout>
 
@@ -40,7 +40,7 @@
         android:layout_below="@id/iv_home_use_author_avatar_url"
         android:layout_marginRight="15dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/tv_home_use_title"
@@ -52,7 +52,7 @@
         android:layout_marginTop="10dp"
         android:text="第60期领到人生的第一份工资"
         android:textColor="#321E1E"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/tv_home_use_introduction"
@@ -62,7 +62,7 @@
         android:layout_alignRight="@id/iv_home_use_cover_image_url"
         android:layout_below="@id/tv_home_use_title"
         android:layout_marginTop="5dp"
-        android:text="如果领到人生的第一份工资" />
+        android:text="如果领到人生的第一份工资"/>
 
     <TextView
         android:id="@+id/tv_home_choice_line"
@@ -73,7 +73,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="7dp"
-        android:background="#D1D1D1" />
+        android:background="#D1D1D1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,14 +85,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="栏目" />
+            android:text="栏目"/>
 
         <TextView
             android:id="@+id/tv_home_use_column_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="海淘情报局" />
+            android:text="海淘情报局"/>
 
     </LinearLayout>
 

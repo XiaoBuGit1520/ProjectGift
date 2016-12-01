@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_home_choice_author_avatar_url"
+    <ImageView
+        android:id="@+id/iv_home_glide_author_avatar_url"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="15dp"
@@ -13,18 +13,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/iv_home_choice_author_avatar_url"
-        android:layout_toRightOf="@id/iv_home_choice_author_avatar_url"
+        android:layout_alignTop="@id/iv_home_glide_author_avatar_url"
+        android:layout_toRightOf="@id/iv_home_glide_author_avatar_url"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_home_choice_author_nickname"
+            android:id="@+id/tv_home_glide_author_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="小C" />
 
         <TextView
-            android:id="@+id/tv_home_choice_author_introduction"
+            android:id="@+id/tv_home_glide_author_introduction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="礼物界的老司机" />
@@ -32,32 +32,32 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_home_choice_title"
+        android:id="@+id/tv_home_glide_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/iv_home_choice_author_avatar_url"
-        android:layout_alignRight="@+id/iv_home_choice_cover_image_url"
-        android:layout_below="@+id/iv_home_choice_cover_image_url"
+        android:layout_alignLeft="@+id/iv_home_glide_author_avatar_url"
+        android:layout_alignRight="@+id/iv_home_glide_cover_image_url"
+        android:layout_below="@+id/iv_home_glide_cover_image_url"
         android:layout_marginTop="10dp"
-        android:text="第60期领到人生的第一份工资"
+        android:text="送这些给射手座男生,俘获Ta的心分分钟"
         android:textColor="#321E1E"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tv_home_choice_introduction"
+        android:id="@+id/tv_home_glide_introduction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/iv_home_choice_author_avatar_url"
-        android:layout_alignRight="@id/iv_home_choice_cover_image_url"
-        android:layout_below="@id/tv_home_choice_title"
+        android:layout_alignLeft="@id/iv_home_glide_author_avatar_url"
+        android:layout_alignRight="@id/iv_home_glide_cover_image_url"
+        android:layout_below="@id/tv_home_glide_title"
         android:layout_marginTop="5dp"
-        android:text="如果领到人生的第一份工资" />
+        android:text="作为星座界的二傻护法" />
 
     <TextView
-        android:id="@+id/tv_home_choice_line"
+        android:id="@+id/tv_home_glide_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/tv_home_choice_introduction"
+        android:layout_below="@id/tv_home_glide_introduction"
         android:layout_marginBottom="7dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -67,8 +67,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/iv_home_choice_author_avatar_url"
-        android:layout_below="@id/tv_home_choice_line"
+        android:layout_alignLeft="@id/iv_home_glide_author_avatar_url"
+        android:layout_below="@id/tv_home_glide_line"
         android:orientation="horizontal">
 
         <TextView
@@ -78,21 +78,21 @@
             android:text="栏目" />
 
         <TextView
-            android:id="@+id/tv_home_choice_column_title"
+            android:id="@+id/tv_home_glide_column_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="一个" />
+            android:text="不打烊的礼物店" />
 
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/iv_home_choice_cover_image_url"
+        android:id="@+id/iv_home_glide_cover_image_url"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignLeft="@id/iv_home_choice_author_avatar_url"
+        android:layout_alignLeft="@id/iv_home_glide_author_avatar_url"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/iv_home_choice_author_avatar_url"
+        android:layout_below="@+id/iv_home_glide_author_avatar_url"
         android:layout_marginRight="15dp"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_launcher" />

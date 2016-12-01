@@ -5,17 +5,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.adapter.gift.GiftTabAdapter;
 import com.xiaobu.com.xiaobugift.adapter.gift.GiftUseAdapterUpdate;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
 import com.xiaobu.com.xiaobugift.bean.gift.GiftUseData;
+import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
+import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 
 /**
  * Created by xiaoBu on 16/11/25.
@@ -24,7 +21,7 @@ import com.xiaobu.com.xiaobugift.bean.gift.GiftUseData;
 // IllegalStateException非法语句异常
 public class GiftUseFragment extends BaseFragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
     private String path;
 
     @Override
@@ -35,7 +32,7 @@ public class GiftUseFragment extends BaseFragment {
     @Override
     public void initView(View view) {
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_gift);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_gift);
 
     }
 
@@ -66,21 +63,49 @@ public class GiftUseFragment extends BaseFragment {
      */
     private void isResolve() {
 
-        /* 使用Volley */
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(path, new Response.Listener<String>() {
+//        /* 使用Volley */
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//        StringRequest stringRequest = new StringRequest(path, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//
+//                /* 使用Gson */
+//                Gson gson = new Gson();
+//                GiftUseData data = gson.fromJson(response, GiftUseData.class);
+//
+//                /* 适配器 */
+//                //GiftUseAdapter adapter = new GiftUseAdapter(getContext());
+//                final GiftUseAdapterUpdate adapter = new GiftUseAdapterUpdate(getContext());
+//                adapter.setData(data);
+//                mRecyclerView.setAdapter(adapter);
+//
+//                final GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+//
+//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                    @Override
+//                    public int getSpanSize(int position) {
+//                        return (adapter.isHeadView(position) || adapter.isBottomView(position)) ? gridLayoutManager.getSpanCount() : 1;
+//                    }
+//                });
+//
+//                mRecyclerView.setLayoutManager(gridLayoutManager);
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//        requestQueue.add(stringRequest);
+
+        NetHelper.MyRequest(path, GiftUseData.class, new NetListener<GiftUseData>() {
             @Override
-            public void onResponse(String response) {
+            public void successListener(GiftUseData response) {
 
-                /* 使用Gson */
-                Gson gson = new Gson();
-                GiftUseData data = gson.fromJson(response, GiftUseData.class);
-
-                /* 适配器 */
-                //GiftUseAdapter adapter = new GiftUseAdapter(getContext());
                 final GiftUseAdapterUpdate adapter = new GiftUseAdapterUpdate(getContext());
-                adapter.setData(data);
-                recyclerView.setAdapter(adapter);
+                adapter.setData(response);
+                mRecyclerView.setAdapter(adapter);
 
                 final GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
 
@@ -91,16 +116,16 @@ public class GiftUseFragment extends BaseFragment {
                     }
                 });
 
-                recyclerView.setLayoutManager(gridLayoutManager);
+                mRecyclerView.setLayoutManager(gridLayoutManager);
 
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        requestQueue.add(stringRequest);
+
     }
 
     /**

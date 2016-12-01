@@ -64,7 +64,6 @@ public class CategoryOneRightRvAdapter extends RecyclerView.Adapter<CategoryOneR
      */
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-
         private ImageView ivIcon;
         private TextView tvIconName;
 

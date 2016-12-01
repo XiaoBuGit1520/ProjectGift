@@ -1,5 +1,6 @@
 package com.xiaobu.com.xiaobugift.fragment.home;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
+import com.xiaobu.com.xiaobugift.activity.HomeGlideActivity;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeChoicenessAdapter;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeGridAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
@@ -20,10 +22,13 @@ import com.xiaobu.com.xiaobugift.bean.home.HomeChoicenessData;
 import com.xiaobu.com.xiaobugift.bean.home.HomeGlideData;
 import com.xiaobu.com.xiaobugift.bean.home.HomeGridData;
 import com.xiaobu.com.xiaobugift.constant.StaticConstant;
-import com.xiaobu.com.xiaobugift.utils.GlideImageLoader;
+import com.xiaobu.com.xiaobugift.utils.glide.GlideImageLoader;
+import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
+import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 
@@ -39,8 +44,9 @@ public class HomeChoicenessFragment extends BaseFragment {
     private View headView;
     private Banner banner;
 
-    private HomeGlideData homeGlideData;
+    private HomeGlideData mHomeGlideData;
     private ArrayList<String> pics;
+    private String idGlide;
 
     @Override
     public int setLayout() {
@@ -66,6 +72,9 @@ public class HomeChoicenessFragment extends BaseFragment {
     @Override
     public void initData() {
 
+        mHomeGlideData = new HomeGlideData();
+        pics = new ArrayList<>();
+
         // 调用轮播图的解析方法
         isResolve();
         // 调用轮播图的banner
@@ -75,16 +84,16 @@ public class HomeChoicenessFragment extends BaseFragment {
 
     }
 
-    String url = "http://api.liwushuo.com/v2/secondary_banners?gender=1&generation=2";
-
     /**
      * 六宫格 拉取网络数据并解析
      */
     private void isGridViewResolve() {
 
+        //NetHelper.MyRequest(StaticConstant);
+
         /* 使用Volley */
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(StaticConstant.HOME_CHOICE_GRID, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -112,38 +121,26 @@ public class HomeChoicenessFragment extends BaseFragment {
      */
     private void isGlideResolve() {
 
-        /* 使用Volley */
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(StaticConstant.HOME_CHOICE_GLIDE, new Response.Listener<String>() {
+        NetHelper.MyRequest(StaticConstant.HOME_CHOICE_GLIDE, HomeGlideData.class, new NetListener<HomeGlideData>() {
             @Override
-            public void onResponse(String response) {
+            public void successListener(HomeGlideData response) {
 
-                /* 使用Gson */
-                Gson gson = new Gson();
-                homeGlideData = new HomeGlideData();
-                homeGlideData = gson.fromJson(response, HomeGlideData.class);
+                for (int i = 0; i < response.getData().getBanners().size(); i++) {
 
-                pics = new ArrayList<>();
-
-                for (int i = 0; i < homeGlideData.getData().getBanners().size(); i++) {
-
-                    //Log.d("HomeChoicenessFragment", homeGlideData.getData().getBanners().get(i).getImage_url());
-
-                    pics.add(homeGlideData.getData().getBanners().get(i).getImage_url());
+                    pics.add(response.getData().getBanners().get(i).getImage_url());
+                    mHomeGlideData = response;
                 }
 
                 // 写在别的地方可能会导致空指针
                 isGlideBanner(pics);
 
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-
-        requestQueue.add(stringRequest);
     }
 
     /**
@@ -168,15 +165,29 @@ public class HomeChoicenessFragment extends BaseFragment {
         // 设置指示器位置 (当banner模式中有指示器时)
         banner.setIndicatorGravity(BannerConfig.CENTER);
 
+        // 设置监听
+        banner.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void OnBannerClick(int position) {
+
+                Intent intent = new Intent(getContext(), HomeGlideActivity.class);
+
+                idGlide = mHomeGlideData.getData().getBanners().get(position - 1).getTarget_id() + "";
+                Log.d("HomeChoicenessFragment", idGlide);
+
+                intent.putExtra("keyGlide", idGlide);
+
+                startActivity(intent);
+            }
+        });
 
         // 开启banner
         banner.start();
 
     }
 
-
     /**
-     * 网络请求与解析
+     * 主内容 网络请求与解析
      */
     private void isResolve() {
 

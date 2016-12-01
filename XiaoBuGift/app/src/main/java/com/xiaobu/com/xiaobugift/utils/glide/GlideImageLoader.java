@@ -1,4 +1,4 @@
-package com.xiaobu.com.xiaobugift.utils;
+package com.xiaobu.com.xiaobugift.utils.glide;
 
 
 import android.content.Context;
@@ -8,7 +8,8 @@ import com.bumptech.glide.Glide;
 import com.youth.banner.loader.ImageLoader;
 
 /**
- * Created by xiaobu on 2016/11/24.
+ * Created by xiaoBu on 2016/11/24.
+ * 轮播图
  */
 
 // 注意:此处导入 com.youth.banner.loader.ImageLoader;
