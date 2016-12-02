@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Created by xiaoBu on 16/11/22.
- * 首页Fragment
+ * 首页Fragment--框架(Tab+ViewPager)
  */
 
 public class HomeFragment extends BaseFragment {

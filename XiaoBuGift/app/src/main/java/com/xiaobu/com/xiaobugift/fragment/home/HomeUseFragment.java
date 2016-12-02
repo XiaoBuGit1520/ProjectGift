@@ -1,22 +1,21 @@
 package com.xiaobu.com.xiaobugift.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
+import com.xiaobu.com.xiaobugift.activity.HomeChoiceWebActivity;
+import com.xiaobu.com.xiaobugift.activity.HomeUseWebActivity;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeTabAdapter;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeUseAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
 import com.xiaobu.com.xiaobugift.bean.home.HomeUseData;
-
-import java.util.List;
+import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
+import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 
 /**
  * Created by xiaoBu on 16/11/23.
@@ -24,10 +23,10 @@ import java.util.List;
  */
 public class HomeUseFragment extends BaseFragment {
 
-    private ListView listView;
+    private ListView mListView;
     private HomeUseAdapter adapter;
-    private List<HomeUseData.DataBean.ItemsBean> data;
     private String path;
+    private HomeUseData mHomeUseData;//定义复用的实体类
 
     @Override
     public int setLayout() {
@@ -37,14 +36,14 @@ public class HomeUseFragment extends BaseFragment {
     @Override
     public void initView(View view) {
 
-        listView = (ListView) view.findViewById(R.id.lv_home_use);
+        mListView = (ListView) view.findViewById(R.id.lv_home_use);
     }
 
     @Override
     public void initData() {
 
-        isBundle();
-        isResolve();
+        isBundle();//接收传值
+        isResolve();//解析
     }
 
 
@@ -76,12 +75,9 @@ public class HomeUseFragment extends BaseFragment {
     private void isBundle() {
 
         Bundle bundle = getArguments();
-
         String msg = bundle.get("key").toString();
-
         // 网址拼接
         path = "http://api.liwushuo.com/v2/channels/" + msg + "/items_v2?gender=1&limit=20&offset=0&generation=2";
-
     }
 
     /**
@@ -90,37 +86,41 @@ public class HomeUseFragment extends BaseFragment {
      */
     private void isResolve() {
 
-        /* 使用Volley */
-        // 1.创建请求队列
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        // 2.网络请求 (网址, 网络数据获取成功时的回调, 网络数据获取失败时的回调)
-        StringRequest stringRequest = new StringRequest(path, new Response.Listener<String>() {
+        mHomeUseData = new HomeUseData();
+
+        NetHelper.MyRequest(path, HomeUseData.class, new NetListener<HomeUseData>() {
             @Override
-            public void onResponse(String response) {
-
-                /* 使用Gson */
-                Gson gson = new Gson();
-                HomeUseData useBean = gson.fromJson(response, HomeUseData.class);
-                data = useBean.getData().getItems();
-
+            public void successListener(HomeUseData response) {
                 /* 适配器 */
                 // 初始化适配器
                 adapter = new HomeUseAdapter(getContext());
                 // 给适配器(BaseAdapter)加入解析后的数据
-                adapter.setData(data);
+                adapter.setData(response);
                 // 绑定适配器
-                listView.setAdapter(adapter);
+                mListView.setAdapter(adapter);
 
+                mHomeUseData = response;
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        // 3.将网络数据加入到请求队列之中
-        requestQueue.add(stringRequest);
+        /* ListView监听事件 */
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String idUseHomeTabNext = mHomeUseData.getData().getItems().get(position).getId() + "";
+                Intent intent = new Intent(getContext(), HomeUseWebActivity.class);
+                intent.putExtra("KeyHomeUse", idUseHomeTabNext);
+                startActivity(intent);
+
+            }
+        });
     }
+
 
 }
 

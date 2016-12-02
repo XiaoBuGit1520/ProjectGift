@@ -5,16 +5,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.adapter.gift.GiftTabAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
 import com.xiaobu.com.xiaobugift.bean.gift.GiftTabData;
+import com.xiaobu.com.xiaobugift.constant.StaticConstant;
+import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
+import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 
 /**
  * Created by xiaoBu on 16/11/22.
@@ -40,39 +38,34 @@ public class GiftFragment extends BaseFragment {
     @Override
     public void initData() {
 
-        isResolve();
+        isResolve();//解析Tab标题
 
     }
 
-    String url = "http://api.liwushuo.com/v2/ranks_v2/ranks";
-
+    /**
+     * 拉取网络数据并解析
+     * (Tab标题)
+     */
     private void isResolve() {
 
-        /* 使用Volley */
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        NetHelper.MyRequest(StaticConstant.GIFT_TAB_URL, GiftTabData.class, new NetListener<GiftTabData>() {
             @Override
-            public void onResponse(String response) {
-
-                /* 使用Gson */
-                Gson gson = new Gson();
-                GiftTabData data = gson.fromJson(response, GiftTabData.class);
+            public void successListener(GiftTabData response) {
 
                 /* 适配器 */
                 GiftTabAdapter adapter = new GiftTabAdapter(getChildFragmentManager());
-                adapter.setGiftTabData(data.getData().getRanks());
+                adapter.setData(response);
                 viewPager.setAdapter(adapter);
                 tabLayout.setupWithViewPager(viewPager);
                 // TabLayout设置字体颜色
                 tabLayout.setTabTextColors(Color.argb(255, 50, 30, 30), Color.argb(255, 255, 45, 71));
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        requestQueue.add(stringRequest);
+
     }
 }

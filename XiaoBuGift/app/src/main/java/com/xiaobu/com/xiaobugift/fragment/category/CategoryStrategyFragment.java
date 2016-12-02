@@ -13,8 +13,12 @@ import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.adapter.category.CategoryStrategyAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
+import com.xiaobu.com.xiaobugift.bean.category.CategoryOneData;
 import com.xiaobu.com.xiaobugift.bean.category.CategoryStrategyBottomData;
 import com.xiaobu.com.xiaobugift.bean.category.CategoryStrategyHeadData;
+import com.xiaobu.com.xiaobugift.constant.StaticConstant;
+import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
+import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 
 /**
  * Created by xiaobu on 2016/11/27.
@@ -40,10 +44,11 @@ public class CategoryStrategyFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        // 注意要写在这里
         mAdapter = new CategoryStrategyAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
-        isResolveHead();
-        isResolveBottom();
+        isResolveHead();//头部横向rv
+        isResolveBottom();//底部纵向rv
 
 
     }
@@ -53,28 +58,19 @@ public class CategoryStrategyFragment extends BaseFragment {
      */
     private void isResolveHead() {
 
-        String url1 = "http://api.liwushuo.com/v2/columns";
-
-        RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
-        StringRequest mStringRequest = new StringRequest(url1, new Response.Listener<String>() {
+        NetHelper.MyRequest(StaticConstant.CATEGORY_STRATEGY_HEAD, CategoryStrategyHeadData.class, new NetListener<CategoryStrategyHeadData>() {
             @Override
-            public void onResponse(String response) {
-
-                Gson gson = new Gson();
-                CategoryStrategyHeadData data = gson.fromJson(response, CategoryStrategyHeadData.class);
-
-                /* 适配器 */
-                mAdapter.setDataHead(data);
+            public void successListener(CategoryStrategyHeadData response) {
+                /* 适配器上 */
+                mAdapter.setDataHead(response);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        mRequestQueue.add(mStringRequest);
     }
 
     /**
@@ -82,27 +78,18 @@ public class CategoryStrategyFragment extends BaseFragment {
      */
     private void isResolveBottom() {
 
-        String url2 = "http://api.liwushuo.com/v2/channel_groups/all";
-
-        RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
-        StringRequest mStringRequest = new StringRequest(url2, new Response.Listener<String>() {
+        NetHelper.MyRequest(StaticConstant.CATEGORY_STRATEGY_BOTTOM, CategoryStrategyBottomData.class, new NetListener<CategoryStrategyBottomData>() {
             @Override
-            public void onResponse(String response) {
-
-                Gson gson = new Gson();
-                CategoryStrategyBottomData data = gson.fromJson(response, CategoryStrategyBottomData.class);
-
-                /* 适配器 */
-                mAdapter.setDataBottom(data);
+            public void successListener(CategoryStrategyBottomData response) {
+                /* 适配器下 */
+                mAdapter.setDataBottom(response);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        mRequestQueue.add(mStringRequest);
     }
 }

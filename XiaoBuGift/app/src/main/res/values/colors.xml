@@ -5,5 +5,12 @@
     <color name="colorAccent">#FF4081</color>
     <!--hehe-->
     <color name="colorBackground">#FAF5F5</color>
+    <!--白色-->
+    <color name="white">#ffffff</color>
+    <!--黑色-->
+    <color name="black">#000000</color>
+    <color name="green">#00ff00</color>
+    <!--联动List背景-->
+    <color name="listLeft">#F6F6F7</color>
 
 </resources>

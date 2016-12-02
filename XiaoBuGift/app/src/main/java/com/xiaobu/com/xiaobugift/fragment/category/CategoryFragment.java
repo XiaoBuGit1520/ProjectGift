@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  * Created by xiaoBu on 16/11/22.
- * 分类Fragment 框架
+ * 分类Fragment 框架(Tab+ViewPager)
  */
 
 public class CategoryFragment extends BaseFragment {

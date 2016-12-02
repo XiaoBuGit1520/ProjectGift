@@ -4,20 +4,17 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.adapter.category.CategoryOneLeftAdapter;
 import com.xiaobu.com.xiaobugift.adapter.category.CategoryOneRightAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
 import com.xiaobu.com.xiaobugift.bean.category.CategoryOneData;
-
-import java.util.ArrayList;
+import com.xiaobu.com.xiaobugift.constant.StaticConstant;
+import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
+import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -29,8 +26,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class CategoryOneFragment extends BaseFragment {
 
     private ListView mLvLeft;
+    //compile 'se.emilsjolander:stickylistheaders:2.7.0'
     private StickyListHeadersListView mLvRight;
-    private ArrayList<String> headList, bodyList;
 
     @Override
     public int setLayout() {
@@ -48,40 +45,40 @@ public class CategoryOneFragment extends BaseFragment {
     @Override
     public void initData() {
 
-        headList = new ArrayList<>();
-        bodyList = new ArrayList<>();
+        isResolve();//解析
+    }
 
-        String url = "http://api.liwushuo.com/v2/item_categories/tree";
+    /**
+     * 解析部分(全部)
+     */
+    private void isResolve() {
 
-        /**
-         *
-         */
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        NetHelper.MyRequest(StaticConstant.CATEGORY_ONE_URL, CategoryOneData.class, new NetListener<CategoryOneData>() {
             @Override
-            public void onResponse(String response) {
+            public void successListener(CategoryOneData response) {
 
-                Gson gson = new Gson();
-                CategoryOneData data = gson.fromJson(response, CategoryOneData.class);
-
-                CategoryOneLeftAdapter adapterL = new CategoryOneLeftAdapter(getContext());
+                final CategoryOneLeftAdapter adapterL = new CategoryOneLeftAdapter(getContext());
                 CategoryOneRightAdapter adapterR = new CategoryOneRightAdapter(getContext());
 
-                adapterR.setData(data);
-                adapterL.setData(data);
+                adapterR.setData(response);
+                adapterL.setData(response);
 
-                mLvLeft.setAdapter(adapterL);
-                mLvRight.setAdapter(adapterR);
+                mLvLeft.setAdapter(adapterL);//左
+                mLvRight.setAdapter(adapterR);//右
 
-                /* 监听 */
+                /* ListView联动部分 */
+                // 左
                 mLvLeft.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         mLvRight.setSelection(position);
+                        adapterL.changeSelected(position);//刷新
+
                     }
                 });
 
+                // 右
                 mLvRight.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -95,15 +92,24 @@ public class CategoryOneFragment extends BaseFragment {
                     }
                 });
 
+//                /* 选中监听 */
+//                mLvLeft.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        adapterL.changeSelected(position);//刷新
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parent) {
+//
+//                    }
+//                });
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        requestQueue.add(stringRequest);
     }
-
-
 }

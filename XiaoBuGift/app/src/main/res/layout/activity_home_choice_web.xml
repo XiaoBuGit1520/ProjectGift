@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:descendantFocusability="blocksDescendants"
               android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_category_strategy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!-- WebView(网络视图)能加载显示网页,可以将其视为一个浏览器.它使用了WebKit(开源的浏览器)引擎渲染引擎加载显示网页 -->
 
-    </android.support.v7.widget.RecyclerView>
+    <WebView
+        android:id="@+id/web_home_choice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
 
 </LinearLayout>

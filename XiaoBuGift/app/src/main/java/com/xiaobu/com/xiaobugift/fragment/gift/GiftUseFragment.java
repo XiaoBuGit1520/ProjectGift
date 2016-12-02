@@ -18,7 +18,7 @@ import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
  * Created by xiaoBu on 16/11/25.
  * 榜单---复用的Fragment
  */
-// IllegalStateException非法语句异常
+
 public class GiftUseFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
@@ -39,13 +39,14 @@ public class GiftUseFragment extends BaseFragment {
     @Override
     public void initData() {
 
-        isBundle();
-        isResolve();
+        isBundle();//接收传值
+        isResolve();//解析
 
     }
 
     /**
      * 接收传值
+     * 复用
      */
     private void isBundle() {
 
@@ -59,45 +60,9 @@ public class GiftUseFragment extends BaseFragment {
 
     /**
      * 请求网络数据并解析--主要数据
-     * (Volley + Gson)
+     * (Volley二次封装)
      */
     private void isResolve() {
-
-//        /* 使用Volley */
-//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//        StringRequest stringRequest = new StringRequest(path, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//                /* 使用Gson */
-//                Gson gson = new Gson();
-//                GiftUseData data = gson.fromJson(response, GiftUseData.class);
-//
-//                /* 适配器 */
-//                //GiftUseAdapter adapter = new GiftUseAdapter(getContext());
-//                final GiftUseAdapterUpdate adapter = new GiftUseAdapterUpdate(getContext());
-//                adapter.setData(data);
-//                mRecyclerView.setAdapter(adapter);
-//
-//                final GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-//
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        return (adapter.isHeadView(position) || adapter.isBottomView(position)) ? gridLayoutManager.getSpanCount() : 1;
-//                    }
-//                });
-//
-//                mRecyclerView.setLayoutManager(gridLayoutManager);
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        requestQueue.add(stringRequest);
 
         NetHelper.MyRequest(path, GiftUseData.class, new NetListener<GiftUseData>() {
             @Override
@@ -117,7 +82,6 @@ public class GiftUseFragment extends BaseFragment {
                 });
 
                 mRecyclerView.setLayoutManager(gridLayoutManager);
-
             }
 
             @Override
@@ -125,11 +89,11 @@ public class GiftUseFragment extends BaseFragment {
 
             }
         });
-
     }
 
     /**
      * newInstance()
+     * 复用
      *
      * @return
      */

@@ -62,6 +62,8 @@
         android:layout_alignRight="@id/iv_home_use_cover_image_url"
         android:layout_below="@id/tv_home_use_title"
         android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="如果领到人生的第一份工资"/>
 
     <TextView

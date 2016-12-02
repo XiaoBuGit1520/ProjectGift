@@ -4,12 +4,17 @@
               android:layout_height="match_parent"
               android:orientation="horizontal">
 
+    <!--android:divider="@null"--><!--不显示分割线-->
+    <!--android:scrollbars="none"--><!--隐藏滑动条-->
+
     <ListView
         android:id="@+id/lv_category_one_left"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:divider="@null">
+        android:divider="@null"
+        android:scrollbars="none"
+        android:cacheColorHint="@android:color/transparent">
 
     </ListView>
 

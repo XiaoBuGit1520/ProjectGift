@@ -19,6 +19,7 @@ public class CategoryOneLeftAdapter extends BaseAdapter {
 
     private CategoryOneData data;
     private Context mContext;
+    private int mSelect = 0;
 
     public CategoryOneLeftAdapter(Context context) {
         mContext = context;
@@ -27,6 +28,13 @@ public class CategoryOneLeftAdapter extends BaseAdapter {
     public void setData(CategoryOneData data) {
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    public void changeSelected(int position) {
+        if (position != mSelect) {
+            mSelect = position;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -50,11 +58,20 @@ public class CategoryOneLeftAdapter extends BaseAdapter {
         TabViewHolder holder = null;
 
         if (convertView == null) {
+
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_category_list_left, parent, false);
             holder = new TabViewHolder(convertView);
             convertView.setTag(holder);
+
         } else {
             holder = (TabViewHolder) convertView.getTag();
+        }
+
+        /* 判断选中item的颜色 */
+        if (mSelect == position) {
+            convertView.setBackgroundResource(R.color.white);
+        } else {
+            convertView.setBackgroundResource(R.color.listLeft);
         }
 
         holder.tvLeft.setText(data.getData().getCategories().get(position).getName());

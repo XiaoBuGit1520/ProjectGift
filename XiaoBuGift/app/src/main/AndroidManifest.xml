@@ -20,6 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeGlideActivity"/>
+        <activity android:name=".activity.HomeGridActivity"/>
+        <activity android:name=".activity.HomeChoiceWebActivity"/>
+        <activity android:name=".activity.HomeUseWebActivity"/>
     </application>
 
 </manifest>

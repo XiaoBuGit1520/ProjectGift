@@ -10,23 +10,22 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xiaobu.com.xiaobugift.R;
-import com.xiaobu.com.xiaobugift.bean.home.HomeGlideDataTwo;
+import com.xiaobu.com.xiaobugift.bean.home.HomeGridDataNext;
 
 /**
- * Created by xiaoBu on 16/12/1.
- * 轮播图--二级页面--适配器
+ * Created by xiaoBu on 16/12/2.
  */
 
-public class HomeGlideAdapterTwo extends BaseAdapter {
+public class HomeGridAdapterNext extends BaseAdapter {
 
-    private HomeGlideDataTwo data;
+    private HomeGridDataNext data;
     private Context mContext;
 
-    public HomeGlideAdapterTwo(Context context) {
+    public HomeGridAdapterNext(Context context) {
         mContext = context;
     }
 
-    public void setData(HomeGlideDataTwo data) {
+    public void setData(HomeGridDataNext data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -48,20 +47,19 @@ public class HomeGlideAdapterTwo extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        GlideViewHolder holder = null;
+        GridViewHolder holder = null;
 
         if (convertView == null) {
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_home_glide_two, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_home_grid_next, parent, false);
 
-            holder = new GlideViewHolder(convertView);
+            holder = new GridViewHolder(convertView);
 
             convertView.setTag(holder);
 
         } else {
 
-            holder = (GlideViewHolder) convertView.getTag();
+            holder = (GridViewHolder) convertView.getTag();
 
         }
 
@@ -80,21 +78,23 @@ public class HomeGlideAdapterTwo extends BaseAdapter {
     /**
      * 缓存类
      */
-    class GlideViewHolder {
+    private class GridViewHolder {
 
         private TextView tvAuthorNickname, tvAuthorIntroduction, tvTitle, tvIntroduction, tvColumnTitle;
         private ImageView ivAuthorAvatarUrl, ivCoverImageUrl;
 
-        public GlideViewHolder(View view) {
+        private GridViewHolder(View view) {
 
-            tvAuthorNickname = (TextView) view.findViewById(R.id.tv_home_glide_author_nickname);
-            tvAuthorIntroduction = (TextView) view.findViewById(R.id.tv_home_glide_author_introduction);
-            tvTitle = (TextView) view.findViewById(R.id.tv_home_glide_title);
-            tvIntroduction = (TextView) view.findViewById(R.id.tv_home_glide_introduction);
-            tvColumnTitle = (TextView) view.findViewById(R.id.tv_home_glide_column_title);
+            tvAuthorNickname = (TextView) view.findViewById(R.id.tv_home_grid_author_nickname);
+            tvAuthorIntroduction = (TextView) view.findViewById(R.id.tv_home_grid_author_introduction);
+            tvTitle = (TextView) view.findViewById(R.id.tv_home_grid_title);
+            tvIntroduction = (TextView) view.findViewById(R.id.tv_home_grid_introduction);
+            tvColumnTitle = (TextView) view.findViewById(R.id.tv_home_grid_column_title);
 
-            ivAuthorAvatarUrl = (ImageView) view.findViewById(R.id.iv_home_glide_author_avatar_url);
-            ivCoverImageUrl = (ImageView) view.findViewById(R.id.iv_home_glide_cover_image_url);
+            ivAuthorAvatarUrl = (ImageView) view.findViewById(R.id.iv_home_grid_author_avatar_url);
+            ivCoverImageUrl = (ImageView) view.findViewById(R.id.iv_home_grid_cover_image_url);
         }
     }
+
+
 }

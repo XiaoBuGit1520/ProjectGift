@@ -60,7 +60,7 @@
 
         <EditText
             android:id="@+id/et_input_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:hint="输入手机号"
@@ -82,7 +82,7 @@
 
         <EditText
             android:id="@+id/et_input_password"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:hint="输入密码"

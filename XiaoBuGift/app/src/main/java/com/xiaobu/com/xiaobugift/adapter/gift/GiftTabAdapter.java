@@ -7,23 +7,23 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.xiaobu.com.xiaobugift.bean.gift.GiftTabData;
 import com.xiaobu.com.xiaobugift.fragment.gift.GiftUseFragment;
 
-import java.util.List;
-
 /**
- * Created by dllo on 16/11/25.
+ * Created by xiaoBu on 16/11/25.
+ * 榜单Fragment--Tab标题--适配器
  */
 
 public class GiftTabAdapter extends FragmentStatePagerAdapter {
 
 
-    private static List<GiftTabData.DataBean.RanksBean> giftTabData;
+    //private static List<GiftTabData.DataBean.RanksBean> giftTabData;
+    private static GiftTabData data;
 
     public GiftTabAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public void setGiftTabData(List<GiftTabData.DataBean.RanksBean> giftTabData) {
-        GiftTabAdapter.giftTabData = giftTabData;
+    public void setData(GiftTabData data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
@@ -34,16 +34,16 @@ public class GiftTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return giftTabData != null ? giftTabData.size() : 0;
+        return data != null ? data.getData().getRanks().size() : 0;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return giftTabData.get(position).getName();
+        return data.getData().getRanks().get(position).getName();
     }
 
     public static String getMessage(int position) {
 
-        return giftTabData.get(position).getId() + "";
+        return data.getData().getRanks().get(position).getId() + "";
     }
 }

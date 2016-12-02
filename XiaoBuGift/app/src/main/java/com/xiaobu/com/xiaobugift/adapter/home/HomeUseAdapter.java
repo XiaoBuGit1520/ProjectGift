@@ -15,31 +15,33 @@ import com.xiaobu.com.xiaobugift.bean.home.HomeUseData;
 import java.util.List;
 
 /**
- * Created by dllo on 16/11/23.
+ * Created by xiaoBu on 16/11/23.
+ * 首页--除精选Tab外其余Tab共用的Adapter
  */
 
 public class HomeUseAdapter extends BaseAdapter {
 
-    private List<HomeUseData.DataBean.ItemsBean> data;
+    //private List<HomeUseData.DataBean.ItemsBean> data;
+    private HomeUseData data;
     private Context context;
 
     public HomeUseAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<HomeUseData.DataBean.ItemsBean> data) {
+    public void setData(HomeUseData data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return data != null ? data.size() : 0;
+        return data != null ? data.getData().getItems().size() : 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return data != null ? data.get(position) : null;
+        return data != null ? data.getData().getItems().get(position) : null;
     }
 
     @Override
@@ -62,17 +64,20 @@ public class HomeUseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tvAuthorNickname.setText(data.get(position).getAuthor().getNickname());
-        holder.tvAuthorIntroduction.setText(data.get(position).getAuthor().getIntroduction());
-        holder.tvTitle.setText(data.get(position).getTitle());
-        holder.tvIntroduction.setText(data.get(position).getIntroduction());
-        holder.tvColumnTitle.setText(data.get(position).getColumn().getTitle());
+        holder.tvAuthorNickname.setText(data.getData().getItems().get(position).getAuthor().getNickname());//作者昵称
+        holder.tvAuthorIntroduction.setText(data.getData().getItems().get(position).getAuthor().getIntroduction());//作者介绍
+        holder.tvTitle.setText(data.getData().getItems().get(position).getTitle());//标题(大字体内容)
+        holder.tvIntroduction.setText(data.getData().getItems().get(position).getIntroduction());//标题下方的介绍
+        holder.tvColumnTitle.setText(data.getData().getItems().get(position).getColumn().getTitle());//eg:栏目 一个
 
-        Picasso.with(context).load(data.get(position).getAuthor().getAvatar_url()).into(holder.ivAuthorAvatarUrl);
-        Picasso.with(context).load(data.get(position).getCover_image_url()).into(holder.ivCoverImageUrl);
+        Picasso.with(context).load(data.getData().getItems().get(position).getAuthor().getAvatar_url()).into(holder.ivAuthorAvatarUrl);//作者头像
+        Picasso.with(context).load(data.getData().getItems().get(position).getCover_image_url()).into(holder.ivCoverImageUrl);//大图片
         return convertView;
     }
 
+    /**
+     * 缓存类
+     */
     class ViewHolder {
 
         private TextView tvAuthorNickname, tvAuthorIntroduction, tvTitle, tvIntroduction, tvColumnTitle;

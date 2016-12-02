@@ -4,17 +4,15 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.activity.HomeGlideActivity;
+import com.xiaobu.com.xiaobugift.activity.HomeGridActivity;
+import com.xiaobu.com.xiaobugift.activity.HomeChoiceWebActivity;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeChoicenessAdapter;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeGridAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
@@ -34,19 +32,20 @@ import java.util.ArrayList;
 
 /**
  * Created by xiaoBu on 16/11/23.
- * 首页---精选Tab
+ * 首页--精选Tab--全部数据
  */
 
 public class HomeChoicenessFragment extends BaseFragment {
 
     private ListView listView;
     private GridView gridView;
-    private View headView;
-    private Banner banner;
+    private View headView;//头布局
+    private Banner banner;//轮播图
 
-    private HomeGlideData mHomeGlideData;
+    private HomeGlideData mHomeGlideData;//定义轮播图实体类
+    private HomeGridData mHomeGridData;//定义六宫格实体类
+    private HomeChoicenessData mHomeChoicenessData;//定义主数据实体类
     private ArrayList<String> pics;
-    private String idGlide;
 
     @Override
     public int setLayout() {
@@ -72,12 +71,9 @@ public class HomeChoicenessFragment extends BaseFragment {
     @Override
     public void initData() {
 
-        mHomeGlideData = new HomeGlideData();
-        pics = new ArrayList<>();
-
-        // 调用轮播图的解析方法
+        // 轮播图的解析方法
         isResolve();
-        // 调用轮播图的banner
+        // 轮播图的banner
         isGlideResolve();
         // 六宫格
         isGridViewResolve();
@@ -86,40 +82,56 @@ public class HomeChoicenessFragment extends BaseFragment {
 
     /**
      * 六宫格 拉取网络数据并解析
+     * (Volley二次封装)
      */
     private void isGridViewResolve() {
 
-        //NetHelper.MyRequest(StaticConstant);
+        mHomeGridData = new HomeGridData();//初始化
 
-        /* 使用Volley */
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(StaticConstant.HOME_CHOICE_GRID, new Response.Listener<String>() {
+        // 参数:url, 实体类.class, new NetListener<实体类>() {...
+        NetHelper.MyRequest(StaticConstant.HOME_CHOICE_GRID, HomeGridData.class, new NetListener<HomeGridData>() {
             @Override
-            public void onResponse(String response) {
-
-                Gson gson = new Gson();
-                HomeGridData data = gson.fromJson(response, HomeGridData.class);
-                Log.d("HomeChoicenessFragment", "data:" + data);
-
+            public void successListener(HomeGridData response) {
                 /* 适配器 */
                 HomeGridAdapter adapter = new HomeGridAdapter(getContext());
-                adapter.setData(data);
+                // response替代之前的data
+                adapter.setData(response);
                 gridView.setAdapter(adapter);
 
+                mHomeGridData = response;//将解析后的数据赋值给...
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        requestQueue.add(stringRequest);
+
+        /* GridView点击事件 */
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getContext(), HomeGridActivity.class);
+
+                String idGrid = mHomeGridData.getData().getSecondary_banners().get(position).getTarget_url();//六宫格id
+
+                intent.putExtra("keyGrid", idGrid);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
      * 轮播图 拉取网络数据并解析
+     * (Volley二次封装)
      */
     private void isGlideResolve() {
+
+        pics = new ArrayList<>();
+        mHomeGlideData = new HomeGlideData();//初始化即将被赋值的数据
 
         NetHelper.MyRequest(StaticConstant.HOME_CHOICE_GLIDE, HomeGlideData.class, new NetListener<HomeGlideData>() {
             @Override
@@ -128,10 +140,11 @@ public class HomeChoicenessFragment extends BaseFragment {
                 for (int i = 0; i < response.getData().getBanners().size(); i++) {
 
                     pics.add(response.getData().getBanners().get(i).getImage_url());
+                    // 获取到解析后的数据
                     mHomeGlideData = response;
                 }
 
-                // 写在别的地方可能会导致空指针
+                // 写在别的地方可能会导致空指针异常
                 isGlideBanner(pics);
 
             }
@@ -165,14 +178,16 @@ public class HomeChoicenessFragment extends BaseFragment {
         // 设置指示器位置 (当banner模式中有指示器时)
         banner.setIndicatorGravity(BannerConfig.CENTER);
 
-        // 设置监听
+        /* banner设置监听 */
         banner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void OnBannerClick(int position) {
 
+                /* 传值id到新的Activity */
                 Intent intent = new Intent(getContext(), HomeGlideActivity.class);
 
-                idGlide = mHomeGlideData.getData().getBanners().get(position - 1).getTarget_id() + "";
+                // 位置不匹配:position-1
+                String idGlide = mHomeGlideData.getData().getBanners().get(position - 1).getTarget_id() + "";
                 Log.d("HomeChoicenessFragment", idGlide);
 
                 intent.putExtra("keyGlide", idGlide);
@@ -188,34 +203,37 @@ public class HomeChoicenessFragment extends BaseFragment {
 
     /**
      * 主内容 网络请求与解析
+     * (Volley二次封装)
      */
     private void isResolve() {
 
-        /* 使用Volley */
-        // 1.创建请求队列
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        // 2.网络请求(网址, 网络数据获取成功时的回调, 网络数据获取失败时的回调)
-        StringRequest stringRequest = new StringRequest(StaticConstant.HOME_CHOICE_URL, new Response.Listener<String>() {
+        NetHelper.MyRequest(StaticConstant.HOME_CHOICE_URL, HomeChoicenessData.class, new NetListener<HomeChoicenessData>() {
             @Override
-            public void onResponse(String response) {
-
-                /* 使用Gson */
-                Gson gson = new Gson();
-                HomeChoicenessData data = gson.fromJson(response, HomeChoicenessData.class);
-
-                /* 适配器 */
+            public void successListener(HomeChoicenessData response) {
                 HomeChoicenessAdapter adapter = new HomeChoicenessAdapter(getContext());
-                adapter.setData(data);
+                adapter.setData(response);
                 listView.setAdapter(adapter);
 
+                mHomeChoicenessData = response;//将解析后的数据赋值
+
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void errorListener(VolleyError error) {
 
             }
         });
-        // 3.将网络数据加入到请求队列之中
-        requestQueue.add(stringRequest);
+        /* ListView点击事件 */
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String idChoice = mHomeChoicenessData.getData().getItems().get(position - 1).getId() + "";
+                Intent intent = new Intent(getContext(), HomeChoiceWebActivity.class);
+                intent.putExtra("keyChoice", idChoice);
+                startActivity(intent);
+
+            }
+        });
     }
 }

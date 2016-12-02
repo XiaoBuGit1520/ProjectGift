@@ -4,16 +4,11 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiaobu.com.xiaobugift.R;
-import com.xiaobu.com.xiaobugift.adapter.home.HomeGlideAdapterTwo;
+import com.xiaobu.com.xiaobugift.adapter.home.HomeGlideAdapterNext;
 import com.xiaobu.com.xiaobugift.base.BaseActivity;
-import com.xiaobu.com.xiaobugift.bean.home.HomeGlideDataTwo;
+import com.xiaobu.com.xiaobugift.bean.home.HomeGlideDataNext;
 import com.xiaobu.com.xiaobugift.utils.volley.NetHelper;
 import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 
@@ -25,7 +20,7 @@ import com.xiaobu.com.xiaobugift.utils.volley.NetListener;
 public class HomeGlideActivity extends BaseActivity {
 
     private ListView mListView;
-    private String mUrl;
+    private String mGlideUrl;
 
     @Override
     public int setLayout() {
@@ -42,28 +37,36 @@ public class HomeGlideActivity extends BaseActivity {
     @Override
     public void initData() {
 
-        Intent intent = getIntent();
-        String idGlide = intent.getStringExtra("keyGlide");
+        isGlideResolve();//轮播图
+        isGridSixResolve();//六宫格
 
-        Log.d("HomeGlideActivity", idGlide);
+    }
 
-        // 网址拼接
-        mUrl = "http://api.liwushuo.com/v2/collections/" + idGlide + "/posts?limit=20&offset=0";
+    /**
+     * 六宫格二级页面解析
+     */
+    private void isGridSixResolve() {
 
-        isResolve();
 
     }
 
     /**
      * 轮播图二级页面解析
      */
-    private void isResolve() {
+    private void isGlideResolve() {
 
-        NetHelper.MyRequest(mUrl, HomeGlideDataTwo.class, new NetListener<HomeGlideDataTwo>() {
+        Intent intent = getIntent();
+        String idGlide = intent.getStringExtra("keyGlide");
+        Log.d("HomeGlideActivity", idGlide);
+
+        // 网址拼接
+        mGlideUrl = "http://api.liwushuo.com/v2/collections/" + idGlide + "/posts?limit=20&offset=0";
+
+        NetHelper.MyRequest(mGlideUrl, HomeGlideDataNext.class, new NetListener<HomeGlideDataNext>() {
             @Override
-            public void successListener(HomeGlideDataTwo response) {
+            public void successListener(HomeGlideDataNext response) {
 
-                HomeGlideAdapterTwo adapter = new HomeGlideAdapterTwo(getBaseContext());
+                HomeGlideAdapterNext adapter = new HomeGlideAdapterNext(getBaseContext());
                 adapter.setData(response);
                 mListView.setAdapter(adapter);
             }
@@ -74,27 +77,10 @@ public class HomeGlideActivity extends BaseActivity {
             }
         });
 
-//        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
-//        StringRequest stringRequest = new StringRequest(mUrl, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//                Gson gson = new Gson();
-//                HomeGlideDataTwo data = gson.fromJson(response, HomeGlideDataTwo.class);
-//
-//                HomeGlideAdapterTwo adapter = new HomeGlideAdapterTwo(getBaseContext());
-//                adapter.setData(data);
-//                mListView.setAdapter(adapter);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        requestQueue.add(stringRequest);
     }
 
+    /**
+     *
+     */
 
 }

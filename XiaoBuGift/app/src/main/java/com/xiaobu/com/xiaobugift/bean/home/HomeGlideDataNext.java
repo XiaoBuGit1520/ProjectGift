@@ -6,7 +6,7 @@ import java.util.List;
  * Created by xiaoBu on 16/12/1.
  */
 
-public class HomeGlideDataTwo {
+public class HomeGlideDataNext {
 
     // http://api.liwushuo.com/v2/collections/397/posts?limit=20&offset=0
 
