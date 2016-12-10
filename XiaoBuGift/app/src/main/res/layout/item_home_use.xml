@@ -129,7 +129,7 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="3dp"
-            android:layout_toLeftOf="@+id/home_use_love"
+            android:layout_toLeftOf="@+id/tv_home_use_love"
             android:scaleType="fitXY"
             android:src="@mipmap/icon_heart_unselected"/>
 
