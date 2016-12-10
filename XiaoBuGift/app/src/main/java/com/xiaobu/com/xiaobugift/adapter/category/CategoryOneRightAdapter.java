@@ -1,8 +1,7 @@
 package com.xiaobu.com.xiaobugift.adapter.category;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.bean.category.CategoryOneData;
+import com.xiaobu.com.xiaobugift.customize.MyGridView;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
@@ -23,7 +23,9 @@ public class CategoryOneRightAdapter extends BaseAdapter implements StickyListHe
 
     private CategoryOneData data;
     private Context mContext;
-    private CategoryOneRightRvAdapter mAdapter;
+    //private CategoryOneRightRvAdapter mAdapter;
+    private CategoryOneRightGvAdapter mAdapter;//重制版GvAdapter
+    private int selectIndexTitle;
 
     public CategoryOneRightAdapter(Context context) {
         mContext = context;
@@ -31,6 +33,11 @@ public class CategoryOneRightAdapter extends BaseAdapter implements StickyListHe
 
     public void setData(CategoryOneData data) {
         this.data = data;
+        notifyDataSetChanged();
+    }
+
+    public void setSelectIndexTitle(int selectIndexTitle) {
+        this.selectIndexTitle = selectIndexTitle;
         notifyDataSetChanged();
     }
 
@@ -74,15 +81,16 @@ public class CategoryOneRightAdapter extends BaseAdapter implements StickyListHe
         }
 
         // 初始化适配器
-        mAdapter = new CategoryOneRightRvAdapter(mContext);
+        mAdapter = new CategoryOneRightGvAdapter(mContext);
         // 设置(发送)数据到二级适配器
-        mAdapter.setDataContent(data);
+        mAdapter.setData(data);
+        // 发送本适配器的position到二级适配器
         mAdapter.setPos(position);
         // 绑定适配器
-        holderContent.rvContent.setAdapter(mAdapter);
+        holderContent.gvContent.setAdapter(mAdapter);
         // 设置rv manager (每行*3)
-        GridLayoutManager manager = new GridLayoutManager(mContext, 3);
-        holderContent.rvContent.setLayoutManager(manager);
+//        GridLayoutManager manager = new GridLayoutManager(mContext, 3);
+//        holderContent.rvContent.setLayoutManager(manager);
 
         return convertView;
     }
@@ -99,11 +107,12 @@ public class CategoryOneRightAdapter extends BaseAdapter implements StickyListHe
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
 
+        /* 注意: 需要重新定义一个行布局,若与getView方法内的行布局相同会导致title显示两行 */
         TitleViewHolder holderTitle = null;
 
         if (convertView == null) {
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_category_list_right, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_category_one_right_title, parent, false);
             holderTitle = new TitleViewHolder(convertView);
             convertView.setTag(holderTitle);
 
@@ -113,9 +122,21 @@ public class CategoryOneRightAdapter extends BaseAdapter implements StickyListHe
 
         }
 
-        holderTitle.tvTitle.setText(data.getData().getCategories().get(position).getName());
+        if (data.getData().getCategories().get(position).getName().equals("热门分类")) {
+
+            holderTitle.tvTitle.setText("");
+            holderTitle.mViewLine.setBackgroundColor(Color.WHITE);
+
+        } else {
+
+            holderTitle.tvTitle.setText("   " + data.getData().getCategories().get(position).getName() + "   ");
+        }
 
         return convertView;
+    }
+
+    public void setIndex(int index) {
+        selectIndexTitle = index;
     }
 
     /**
@@ -132,26 +153,28 @@ public class CategoryOneRightAdapter extends BaseAdapter implements StickyListHe
     /**
      * 右侧标题缓存类
      */
-    class TitleViewHolder {
+    private class TitleViewHolder {
 
         private TextView tvTitle;
+        private View mViewLine;
 
-        public TitleViewHolder(View view) {
+        private TitleViewHolder(View view) {
 
             tvTitle = (TextView) view.findViewById(R.id.tv_category_one_title_right);
+            mViewLine = (View) view.findViewById(R.id.view_category_one_title_right_line);
         }
     }
 
     /**
      * 右侧内容缓存类
      */
-    class ContentViewHolder {
+    private class ContentViewHolder {
 
-        private RecyclerView rvContent;
+        private MyGridView gvContent;
 
-        public ContentViewHolder(View view) {
+        private ContentViewHolder(View view) {
 
-            rvContent = (RecyclerView) view.findViewById(R.id.rv_category_one_right);
+            gvContent = (MyGridView) view.findViewById(R.id.gv_category_one_right);
 
         }
     }

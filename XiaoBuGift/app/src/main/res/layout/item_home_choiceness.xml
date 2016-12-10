@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_home_choice_author_avatar_url"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/ic_launcher"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,13 +25,19 @@
             android:id="@+id/tv_home_choice_author_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="小C" />
+            android:layout_margin="2dp"
+            android:text="小C"
+            android:textColor="@color/bigTextColorUsual"
+            android:textSize="12dp"/>
 
         <TextView
             android:id="@+id/tv_home_choice_author_introduction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="礼物界的老司机" />
+            android:layout_margin="2dp"
+            android:text="礼物界的老司机"
+            android:textColor="@color/smallTextColorUsual"
+            android:textSize="11dp"/>
 
     </LinearLayout>
 
@@ -38,10 +48,10 @@
         android:layout_alignLeft="@+id/iv_home_choice_author_avatar_url"
         android:layout_alignRight="@+id/iv_home_choice_cover_image_url"
         android:layout_below="@+id/iv_home_choice_cover_image_url"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="17dp"
         android:text="第60期领到人生的第一份工资"
-        android:textColor="#321E1E"
-        android:textSize="18sp" />
+        android:textColor="@color/bigTextColorUsual"
+        android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/tv_home_choice_introduction"
@@ -50,52 +60,96 @@
         android:layout_alignLeft="@id/iv_home_choice_author_avatar_url"
         android:layout_alignRight="@id/iv_home_choice_cover_image_url"
         android:layout_below="@id/tv_home_choice_title"
-        android:layout_marginTop="5dp"
-        android:text="如果领到人生的第一份工资" />
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="如果领到人生的第一份工资"
+        android:textColor="@color/smallTextColorUsual"/>
 
-    <TextView
-        android:id="@+id/tv_home_choice_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/tv_home_choice_introduction"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="7dp"
-        android:background="#D1D1D1" />
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/rl_home_choice_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/iv_home_choice_author_avatar_url"
-        android:layout_below="@id/tv_home_choice_line"
-        android:orientation="horizontal">
+        android:layout_below="@id/tv_home_choice_introduction"
+        android:layout_marginTop="8dp">
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="7dp"
+            android:background="#D1D1D1"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_home_choice_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iv_home_choice_author_avatar_url"
+        android:layout_below="@id/rl_home_choice_line"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_home_choice_bottom_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="7dp"
-            android:text="栏目" />
+            android:text="栏目"
+            android:textColor="@color/smallTextColorUsual"
+            android:textSize="11dp"/>
 
         <TextView
             android:id="@+id/tv_home_choice_column_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="一个" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/tv_home_choice_bottom_one"
+            android:text="一个"
+            android:textColor="@color/bigTextColorUsual"
+            android:textSize="11dp"/>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:layout_toLeftOf="@+id/home_choice_love"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_heart_unselected"/>
+
+        <TextView
+            android:id="@+id/home_choice_love"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="9999"
+            android:textSize="12dp"/>
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/iv_home_choice_cover_image_url"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="192dp"
         android:layout_alignLeft="@id/iv_home_choice_author_avatar_url"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/iv_home_choice_author_avatar_url"
         android:layout_marginRight="15dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_below="@+id/rl_home_choice_bottom"
+        android:background="@color/colorBackground"/>
 
 
 </RelativeLayout>

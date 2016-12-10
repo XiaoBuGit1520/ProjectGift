@@ -22,6 +22,14 @@ public class CategoryStrategyHeadAdapter extends RecyclerView.Adapter<CategorySt
     private Context mContext;
     private CategoryStrategyHeadData data;
 
+    // 声明接口对象
+    private CategoryStrategyClick mCategoryStrategyClick;
+
+    // 接口对象set方法
+    public void setCategoryStrategyClick(CategoryStrategyClick categoryStrategyClick) {
+        mCategoryStrategyClick = categoryStrategyClick;
+    }
+
     public CategoryStrategyHeadAdapter(Context context) {
         mContext = context;
     }
@@ -35,7 +43,7 @@ public class CategoryStrategyHeadAdapter extends RecyclerView.Adapter<CategorySt
     public MyHeaderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         // 加载行布局
-        View mViewHead = LayoutInflater.from(mContext).inflate(R.layout.item_categoty_head_hor, parent, false);
+        View mViewHead = LayoutInflater.from(mContext).inflate(R.layout.item_categoty_strategy_head, parent, false);
 
         MyHeaderViewHolder holder = new MyHeaderViewHolder(mViewHead);
 
@@ -43,12 +51,21 @@ public class CategoryStrategyHeadAdapter extends RecyclerView.Adapter<CategorySt
     }
 
     @Override
-    public void onBindViewHolder(MyHeaderViewHolder holder, int position) {
+    public void onBindViewHolder(MyHeaderViewHolder holder, final int position) {
 
         holder.tvCategoryHeadAuthor.setText(data.getData().getColumns().get(position).getAuthor());
         holder.tvCategoryHeadTitle.setText(data.getData().getColumns().get(position).getTitle());
 
         Picasso.with(mContext).load(data.getData().getColumns().get(position).getCover_image_url()).into(holder.ivCategoryHeadCoverImageUrl);
+
+        /* 设置监听 */
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 接口对象名.接口方法名
+                mCategoryStrategyClick.myCategoryStrategyListener(position);
+            }
+        });
 
     }
 
@@ -59,13 +76,14 @@ public class CategoryStrategyHeadAdapter extends RecyclerView.Adapter<CategorySt
 
     /**
      * 内部类
+     * 注意:此处不能用private修饰
      */
     class MyHeaderViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivCategoryHeadCoverImageUrl;
         private TextView tvCategoryHeadTitle, tvCategoryHeadAuthor;
 
-        public MyHeaderViewHolder(View itemView) {
+        private MyHeaderViewHolder(View itemView) {
             super(itemView);
 
             ivCategoryHeadCoverImageUrl = (ImageView) itemView.findViewById(R.id.iv_category_head_cover_image_url);

@@ -10,9 +10,9 @@ import android.widget.ListView;
 
 import com.android.volley.VolleyError;
 import com.xiaobu.com.xiaobugift.R;
-import com.xiaobu.com.xiaobugift.activity.HomeGlideActivity;
-import com.xiaobu.com.xiaobugift.activity.HomeGridActivity;
-import com.xiaobu.com.xiaobugift.activity.HomeChoiceWebActivity;
+import com.xiaobu.com.xiaobugift.activity.home.HomeGlideActivity;
+import com.xiaobu.com.xiaobugift.activity.home.HomeGridActivity;
+import com.xiaobu.com.xiaobugift.activity.home.HomeChoiceWebActivity;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeChoicenessAdapter;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeGridAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
@@ -58,7 +58,7 @@ public class HomeChoicenessFragment extends BaseFragment {
         listView = (ListView) view.findViewById(R.id.lv_home_choice);
 
         // 注入头布局
-        headView = LayoutInflater.from(getContext()).inflate(R.layout.item_home_choiceness_head, null);
+        headView = LayoutInflater.from(getContext()).inflate(R.layout.item_home_choiceness_head_all, null);
         // 使用headView绑定banner组件
         banner = (Banner) headView.findViewById(R.id.banner_home_choice);
         // ListView加入头布局

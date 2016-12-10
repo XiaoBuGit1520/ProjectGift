@@ -16,7 +16,7 @@ import com.xiaobu.com.xiaobugift.bean.category.CategoryOneData;
  * Created by xiaoBu on 16/11/30.
  * 分类Fragment--单品Tab--右侧内容rv适配器
  */
-
+/* 已更换为Gv */
 public class CategoryOneRightRvAdapter extends RecyclerView.Adapter<CategoryOneRightRvAdapter.MyViewHolder> {
 
     private Context mContext;
@@ -61,13 +61,14 @@ public class CategoryOneRightRvAdapter extends RecyclerView.Adapter<CategoryOneR
 
     /**
      * 内部类
+     * 注意:这里不能添加private权限
      */
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivIcon;
         private TextView tvIconName;
 
-        public MyViewHolder(View itemView) {
+        private MyViewHolder(View itemView) {
             super(itemView);
 
             ivIcon = (ImageView) itemView.findViewById(R.id.iv_category_one_content_icon_url);

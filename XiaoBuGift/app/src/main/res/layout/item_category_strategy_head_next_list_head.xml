@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_category_strategy_head_head_next"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_category_strategy_head_head_next_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:text="省钱大总攻"
+        android:textColor="#323232"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_category_strategy_head_head_next_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_category_strategy_head_head_next_likes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9999"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_category_strategy_head_head_next_attention"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/tv_category_strategy_head_head_next_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="#EC556A"
+        android:text="+ 关注"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_category_strategy_head_head_next_brief"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_category_strategy_head_head_next"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="简介"/>
+
+    <TextView
+        android:id="@+id/tv_category_strategy_head_head_next_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_category_strategy_head_head_next_brief"
+        android:layout_margin="12dp"
+        android:text="会买不一定“惠”买，每日10款超低价，举双手奉上。——from亚马逊良心出品"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/tv_category_strategy_head_next_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_category_strategy_head_head_next_description"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="列表"/>
+
+</RelativeLayout>

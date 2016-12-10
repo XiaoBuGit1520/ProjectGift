@@ -28,7 +28,13 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
     private int mHeaderCount = 1;//头部View的个数
     private int mBottomCount = 1;//尾部View的个数
 
-    private LayoutInflater mLayoutInflater;
+    private GiftClick mGiftClick;//声明接口对象
+
+    // 接口对象set方法
+    public void setGiftClick(GiftClick giftClick) {
+        mGiftClick = giftClick;
+    }
+
     private Context mContext;
 
     public GiftUseAdapterUpdate(Context context) {
@@ -92,8 +98,14 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
         return null;
     }
 
+    /**
+     * onBindViewHolder()
+     *
+     * @param holder
+     * @param position
+     */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof HeaderViewHolder) {
 
@@ -110,6 +122,14 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof FooterViewHolder) {
 
         }
+
+        /* 设置监听 */
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGiftClick.myGiftListener(position);
+            }
+        });
     }
 
     @Override
@@ -120,11 +140,11 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
     /**
      * 头部ViewHolder
      */
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivCoverImage;
 
-        public HeaderViewHolder(View itemView) {
+        private HeaderViewHolder(View itemView) {
             super(itemView);
             ivCoverImage = (ImageView) itemView.findViewById(R.id.iv_gift_use_head_cover_image);
 
@@ -134,12 +154,12 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
     /**
      * 中部ViewHolder
      */
-    public static class NormalViewHolder extends RecyclerView.ViewHolder {
+    private class NormalViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvName, tvShortDescription, tvPrice;
         private ImageView ivCoverImageUrl;
 
-        public NormalViewHolder(View itemView) {
+        private NormalViewHolder(View itemView) {
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.tv_gift_use_name);
@@ -152,11 +172,11 @@ public class GiftUseAdapterUpdate extends RecyclerView.Adapter<RecyclerView.View
     /**
      * 尾部ViewHolder
      */
-    public static class FooterViewHolder extends RecyclerView.ViewHolder {
+    private class FooterViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivGiftUseFooter;
 
-        public FooterViewHolder(View itemView) {
+        private FooterViewHolder(View itemView) {
             super(itemView);
 
             ivGiftUseFooter = (ImageView) itemView.findViewById(R.id.iv_gift_use_footer);

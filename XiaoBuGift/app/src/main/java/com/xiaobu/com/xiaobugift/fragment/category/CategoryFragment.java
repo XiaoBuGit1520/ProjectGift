@@ -1,13 +1,15 @@
 package com.xiaobu.com.xiaobugift.fragment.category;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.xiaobu.com.xiaobugift.R;
+import com.xiaobu.com.xiaobugift.activity.main.SearchActivity;
 import com.xiaobu.com.xiaobugift.adapter.category.CategoryTabAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
 
@@ -23,6 +25,7 @@ public class CategoryFragment extends BaseFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<Fragment> data;
+    private TextView tvSearch;
 
     @Override
     public int setLayout() {
@@ -34,6 +37,7 @@ public class CategoryFragment extends BaseFragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tab_category);
         viewPager = (ViewPager) view.findViewById(R.id.vp_category);
+        tvSearch = (TextView) view.findViewById(R.id.tv_category_search);
 
     }
 
@@ -42,8 +46,8 @@ public class CategoryFragment extends BaseFragment {
 
         data = new ArrayList<>();
 
-        data.add(new CategoryStrategyFragment());
-        data.add(new CategoryOneFragment());
+        data.add(new CategoryStrategyFragment());//攻略
+        data.add(new CategoryOneFragment());//单品
 
         // 初始化适配器
         CategoryTabAdapter adapter = new CategoryTabAdapter(getChildFragmentManager(), data);
@@ -51,10 +55,26 @@ public class CategoryFragment extends BaseFragment {
         viewPager.setAdapter(adapter);
         // TabLayout与ViewPager绑定
         tabLayout.setupWithViewPager(viewPager);
-        // TabLayout设置字体颜色
+        // TabLayout设置字体颜色(#FF2D47)
         tabLayout.setTabTextColors(Color.argb(255, 50, 30, 30), Color.argb(255, 255, 45, 71));
         //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
+        isSearch();//搜索按钮
+    }
+
+    /**
+     * 跳转到搜索界面
+     */
+    private void isSearch() {
+
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

@@ -8,8 +8,7 @@ import android.widget.ListView;
 
 import com.android.volley.VolleyError;
 import com.xiaobu.com.xiaobugift.R;
-import com.xiaobu.com.xiaobugift.activity.HomeChoiceWebActivity;
-import com.xiaobu.com.xiaobugift.activity.HomeUseWebActivity;
+import com.xiaobu.com.xiaobugift.activity.home.HomeUseWebActivity;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeTabAdapter;
 import com.xiaobu.com.xiaobugift.adapter.home.HomeUseAdapter;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;

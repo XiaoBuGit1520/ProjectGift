@@ -1,6 +1,7 @@
 package com.xiaobu.com.xiaobugift.adapter.category;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class CategoryOneLeftAdapter extends BaseAdapter {
 
     private CategoryOneData data;
     private Context mContext;
-    private int mSelect = 0;
+    private int mSelect;//
 
     public CategoryOneLeftAdapter(Context context) {
         mContext = context;
@@ -30,11 +31,10 @@ public class CategoryOneLeftAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void changeSelected(int position) {
-        if (position != mSelect) {
-            mSelect = position;
-            notifyDataSetChanged();
-        }
+    //
+    public void setSelect(int select) {
+        mSelect = select;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -67,27 +67,38 @@ public class CategoryOneLeftAdapter extends BaseAdapter {
             holder = (TabViewHolder) convertView.getTag();
         }
 
-        /* 判断选中item的颜色 */
-        if (mSelect == position) {
-            convertView.setBackgroundResource(R.color.white);
-        } else {
-            convertView.setBackgroundResource(R.color.listLeft);
-        }
 
         holder.tvLeft.setText(data.getData().getCategories().get(position).getName());
 
+        if (position == mSelect) {
+            holder.tvLeft.setTextColor(Color.RED);
+            holder.tvLeftLine.setBackgroundColor(Color.RED);
+            convertView.setBackgroundResource(R.color.white);
+        } else {
+            holder.tvLeft.setTextColor(Color.rgb(51, 51, 51));//#333333
+            holder.tvLeftLine.setBackgroundResource(R.color.listLeft);//从colors.xml中取值需要用Resource
+            convertView.setBackgroundResource(R.color.listLeft);//从colors.xml中取值需要用Resource
+        }
+
         return convertView;
+    }
+
+    //
+    public void  setIndex(int index) {
+        mSelect = index;
     }
 
     /**
      * 内部类(缓存类)
      */
-    class TabViewHolder {
+    private class TabViewHolder {
 
         private TextView tvLeft;
+        private TextView tvLeftLine;
 
-        public TabViewHolder(View view) {
+        private TabViewHolder(View view) {
             tvLeft = (TextView) view.findViewById(R.id.tv_category_one_left);
+            tvLeftLine = (TextView) view.findViewById(R.id.tv_category_one_left_line_ver);
         }
     }
 }

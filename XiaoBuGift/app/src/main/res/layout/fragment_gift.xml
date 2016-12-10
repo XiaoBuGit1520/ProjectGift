@@ -7,19 +7,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp">
+        android:layout_margin="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="礼物榜"
+            android:textColor="#461E1E"
             android:textSize="17sp"/>
 
         <ImageView
             android:id="@+id/iv_gift_share"
-            android:layout_width="27sp"
-            android:layout_height="27sp"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/icon_share_black"/>
 

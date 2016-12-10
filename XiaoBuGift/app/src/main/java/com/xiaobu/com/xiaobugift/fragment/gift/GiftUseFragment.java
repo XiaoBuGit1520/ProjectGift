@@ -1,5 +1,6 @@
 package com.xiaobu.com.xiaobugift.fragment.gift;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,8 @@ import android.view.View;
 
 import com.android.volley.VolleyError;
 import com.xiaobu.com.xiaobugift.R;
+import com.xiaobu.com.xiaobugift.activity.gift.GiftNextActivity;
+import com.xiaobu.com.xiaobugift.adapter.gift.GiftClick;
 import com.xiaobu.com.xiaobugift.adapter.gift.GiftTabAdapter;
 import com.xiaobu.com.xiaobugift.adapter.gift.GiftUseAdapterUpdate;
 import com.xiaobu.com.xiaobugift.base.BaseFragment;
@@ -23,10 +26,11 @@ public class GiftUseFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private String path;
+    private GiftUseData data;
 
     @Override
     public int setLayout() {
-        return R.layout.fragment_giftuse;
+        return R.layout.fragment_gift_use;
     }
 
     @Override
@@ -82,6 +86,26 @@ public class GiftUseFragment extends BaseFragment {
                 });
 
                 mRecyclerView.setLayoutManager(gridLayoutManager);
+
+                data = new GiftUseData();//初始化
+                data = response;//赋值
+
+                /*** RecyclerView的监听事件 ***/
+
+                adapter.setGiftClick(new GiftClick() {
+                    @Override
+                    public void myGiftListener(int pos) {
+
+                        // 第一张图(头布局)不可被点击
+                        if (pos != 0) {
+
+                            String id = data.getData().getItems().get(pos - 1).getId() + "";
+                            Intent intent = new Intent(getContext(), GiftNextActivity.class);
+                            intent.putExtra("id", id);
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
 
             @Override

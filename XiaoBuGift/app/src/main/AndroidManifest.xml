@@ -12,17 +12,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeGlideActivity"/>
-        <activity android:name=".activity.HomeGridActivity"/>
-        <activity android:name=".activity.HomeChoiceWebActivity"/>
-        <activity android:name=".activity.HomeUseWebActivity"/>
+        <activity android:name=".activity.main.MainActivity"/>
+        <activity android:name=".activity.home.HomeGlideActivity"/>
+        <activity android:name=".activity.home.HomeGridActivity"/>
+        <activity android:name=".activity.home.HomeChoiceWebActivity"/>
+        <activity android:name=".activity.home.HomeUseWebActivity"/>
+        <activity android:name=".activity.gift.GiftNextActivity"/>
+        <activity android:name=".activity.category.CategoryStrategyHeadNextActivity"/>
+        <activity android:name=".activity.category.CategoryStrategyBottomNextActivity"/>
+        <activity android:name=".activity.category.CategoryOneNextActivity"/>
+        <activity android:name=".activity.main.SearchActivity"/>
     </application>
 
 </manifest>

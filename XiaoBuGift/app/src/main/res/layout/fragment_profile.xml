@@ -63,6 +63,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:background="@null"
             android:hint="输入手机号"
             android:textSize="15sp"/>
     </LinearLayout>
@@ -85,6 +86,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:background="@null"
             android:hint="输入密码"
             android:textSize="15sp"/>
     </LinearLayout>
@@ -96,10 +98,11 @@
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="314sp"
+            android:layout_width="324sp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_margin="15dp"
+            android:background="#DCD2D2"
             android:text="登录"
             android:textColor="#FFFFFF"/>
 
@@ -123,12 +126,11 @@
         android:gravity="center_horizontal"
         android:text="使用社交账号登录"/>
 
-
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <ImageView

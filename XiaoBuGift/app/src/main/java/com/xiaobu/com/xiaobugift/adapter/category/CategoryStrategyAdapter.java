@@ -1,16 +1,20 @@
 package com.xiaobu.com.xiaobugift.adapter.category;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import com.xiaobu.com.xiaobugift.R;
+import com.xiaobu.com.xiaobugift.activity.category.CategoryStrategyHeadNextActivity;
 import com.xiaobu.com.xiaobugift.bean.category.CategoryStrategyBottomData;
 import com.xiaobu.com.xiaobugift.bean.category.CategoryStrategyHeadData;
+import com.xiaobu.com.xiaobugift.customize.MyGridView;
 
 /**
  * Created by xiaoBu on 16/11/28.
@@ -57,8 +61,10 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
             return TYPE_CATEGORY_HEADER;
         } else if (position == 1) {
             return TYPE_CATEGORY_BOTTOM;
-        } else
+        } else {
             return 0;
+        }
+
     }
 
     /**
@@ -77,7 +83,7 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
 
             case TYPE_CATEGORY_HEADER:
 
-                View viewHead = LayoutInflater.from(mContext).inflate(R.layout.item_category_rv_head, parent, false);
+                View viewHead = LayoutInflater.from(mContext).inflate(R.layout.item_category_strategy_head_rv, parent, false);
 
                 holder = new CgHeaderViewHolder(viewHead);
 
@@ -85,9 +91,9 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
 
             case TYPE_CATEGORY_BOTTOM:
 
-                View viewBottom = LayoutInflater.from(mContext).inflate(R.layout.item_category_rv_bottom, parent, false);
+                View viewBottom = LayoutInflater.from(mContext).inflate(R.layout.item_category_strategy_bottom_gv, parent, false);
 
-                holder = new CgBottomViewHolder(viewBottom);
+                holder = new CgGvViewHolder(viewBottom);
 
                 break;
         }
@@ -99,10 +105,10 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
      * @param position
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         // 定义我们的缓存类对象
         CgHeaderViewHolder holderHead = null;
-        CgBottomViewHolder holderBottom = null;
+        CgGvViewHolder holderGv = null;
 
         int type = getItemViewType(position);
 
@@ -110,10 +116,10 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
 
             case TYPE_CATEGORY_HEADER:
 
+                holderHead = (CgHeaderViewHolder) holder;//强转holder
+
                 // 初始化适配器
                 CategoryStrategyHeadAdapter adapterHead = new CategoryStrategyHeadAdapter(mContext);
-                // 强转holder
-                holderHead = (CgHeaderViewHolder) holder;
                 // 设置(发送)数据到二级适配器
                 adapterHead.setData(dataHead);
                 // 绑定适配器
@@ -123,23 +129,36 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
                 GridLayoutManager managerHead = new GridLayoutManager(mContext, 3, LinearLayoutManager.HORIZONTAL, false);
                 holderHead.mRecyclerViewHead.setLayoutManager(managerHead);
 
+                /* 下一级适配器rv点击事件 */
+                adapterHead.setCategoryStrategyClick(new CategoryStrategyClick() {
+                    @Override
+                    public void myCategoryStrategyListener(int pos) {
+
+                        String id = dataHead.getData().getColumns().get(pos).getId() + "";
+                        Intent intent = new Intent(mContext, CategoryStrategyHeadNextActivity.class);
+                        intent.putExtra("id", id);
+                        mContext.startActivity(intent);
+                    }
+                });
+
                 break;
 
             case TYPE_CATEGORY_BOTTOM:
 
-                // 初始化适配器
-                CategoryStrategyBottomAdapter adapterBottom = new CategoryStrategyBottomAdapter(mContext);
-                // 强转holder
-                holderBottom = (CgBottomViewHolder) holder;
-                // 设置(发送)数据到二级适配器
-                adapterBottom.setData(dataBottom);
-                // 绑定适配器
-                holderBottom.mRecyclerViewBottom.setAdapter(adapterBottom);
+                holderGv = (CgGvViewHolder) holder;//强转holder
 
-                // 设置rv manager(每行2个Item)
-                //GridLayoutManager managerBottom = new GridLayoutManager(mContext, 2);
-                LinearLayoutManager managerBottom = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-                holderBottom.mRecyclerViewBottom.setLayoutManager(managerBottom);
+                // 初始化适配器
+                CategoryStrategyGvAdapterUp adapterUp = new CategoryStrategyGvAdapterUp(mContext);
+                CategoryStrategyGvAdapterMid adapterMid = new CategoryStrategyGvAdapterMid(mContext);
+                CategoryStrategyGvAdapterDown adapterDown = new CategoryStrategyGvAdapterDown(mContext);
+                // 设置(发送)数据到二级适配器
+                adapterUp.setData(dataBottom);
+                adapterMid.setData(dataBottom);
+                adapterDown.setData(dataBottom);
+                // 绑定适配器
+                holderGv.mGridViewUp.setAdapter(adapterUp);
+                holderGv.mGridViewMid.setAdapter(adapterMid);
+                holderGv.mGridViewDown.setAdapter(adapterDown);
 
                 break;
         }
@@ -165,14 +184,17 @@ public class CategoryStrategyAdapter extends RecyclerView.Adapter {
         }
     }
 
-    class CgBottomViewHolder extends RecyclerView.ViewHolder {
+    class CgGvViewHolder extends RecyclerView.ViewHolder {
 
-        private RecyclerView mRecyclerViewBottom;
+        private MyGridView mGridViewUp, mGridViewMid, mGridViewDown;
 
-        public CgBottomViewHolder(View itemView) {
+        public CgGvViewHolder(View itemView) {
             super(itemView);
 
-            mRecyclerViewBottom = (RecyclerView) itemView.findViewById(R.id.rv_category_bottom);
+            mGridViewUp = (MyGridView) itemView.findViewById(R.id.gv_cg_strategy_up);
+            mGridViewMid = (MyGridView) itemView.findViewById(R.id.gv_cg_strategy_mid);
+            mGridViewDown = (MyGridView) itemView.findViewById(R.id.gv_cg_strategy_down);
+
         }
     }
 }

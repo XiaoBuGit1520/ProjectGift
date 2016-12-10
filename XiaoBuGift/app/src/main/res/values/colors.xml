@@ -3,14 +3,21 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <!--hehe-->
+    <!--礼物说常态背景-->
     <color name="colorBackground">#FAF5F5</color>
     <!--白色-->
     <color name="white">#ffffff</color>
     <!--黑色-->
     <color name="black">#000000</color>
+    <!--绿色-->
     <color name="green">#00ff00</color>
+    <!--Tab字体颜色-->
+    <color name="tab">#FF2D47</color>
     <!--联动List背景-->
     <color name="listLeft">#F6F6F7</color>
+    <!--经典布局小字体颜色 小编介绍 栏目-->
+    <color name="smallTextColorUsual">#8C7878</color>
+    <!--经典布局大字体颜色 小编昵称 栏目名称-->
+    <color name="bigTextColorUsual">#321E1E</color>
 
 </resources>

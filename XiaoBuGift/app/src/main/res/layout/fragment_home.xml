@@ -1,35 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/rl_home_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="3dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/iv_home_logo"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/logo_title_c"/>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="278dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_home_logo"
+            android:background="@drawable/shape_search"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="#8C7878"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="100dp"
+            android:layout_toRightOf="@id/iv_home_logo"
+            android:src="@mipmap/icon_searched"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/icon_gift_send_remind"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            app:tabContentStart="10dp"
             app:tabMode="scrollable">
 
         </android.support.design.widget.TabLayout>
 
-        <RadioButton
+        <ImageView
             android:id="@+id/iv_home_pop"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:button="@null"
-            android:drawableTop="@drawable/selector_home_pop"
-            android:padding="8dp"
-            android:scaleType="center" />
+            android:padding="7dp"
+            android:scaleType="center"
+            android:src="@mipmap/arrow_index_down"/>
 
     </LinearLayout>
 
@@ -37,6 +82,7 @@
         android:id="@+id/vp_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="12dp"
         android:layout_weight="1">
 
     </android.support.v4.view.ViewPager>

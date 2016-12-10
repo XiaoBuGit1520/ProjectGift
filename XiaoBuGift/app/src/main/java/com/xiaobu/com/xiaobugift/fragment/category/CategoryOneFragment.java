@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.xiaobu.com.xiaobugift.R;
@@ -28,6 +27,7 @@ public class CategoryOneFragment extends BaseFragment {
     private ListView mLvLeft;
     //compile 'se.emilsjolander:stickylistheaders:2.7.0'
     private StickyListHeadersListView mLvRight;
+    private int selectIndex = 0;
 
     @Override
     public int setLayout() {
@@ -58,7 +58,7 @@ public class CategoryOneFragment extends BaseFragment {
             public void successListener(CategoryOneData response) {
 
                 final CategoryOneLeftAdapter adapterL = new CategoryOneLeftAdapter(getContext());
-                CategoryOneRightAdapter adapterR = new CategoryOneRightAdapter(getContext());
+                final CategoryOneRightAdapter adapterR = new CategoryOneRightAdapter(getContext());
 
                 adapterR.setData(response);
                 adapterL.setData(response);
@@ -72,8 +72,13 @@ public class CategoryOneFragment extends BaseFragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                        adapterL.setSelect(position);//刷新数据
+
+                        //当点击某个item的时候让这个item自动滑动到listview的首位(下面item够多，如果点击的是最后一个就不能到达顶部了)
+                        mLvLeft.smoothScrollToPositionFromTop(position, 0);//暂时不好使
+                        adapterR.setIndex(position);//暂时不好使,适配器内方法没有用上
+
                         mLvRight.setSelection(position);
-                        adapterL.changeSelected(position);//刷新
 
                     }
                 });
@@ -83,27 +88,26 @@ public class CategoryOneFragment extends BaseFragment {
                     @Override
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+                        // scrollState: 滚动状态 实测似乎只有0,1,2三个值
                     }
 
+                    /**
+                     * onScroll()--正在滚动
+                     * firstVisibleItem第一个Item的位置
+                     * visibleItemCount 可见的Item的数量
+                     * totalItemCount item的总数
+                     */
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                         mLvLeft.smoothScrollToPositionFromTop(firstVisibleItem, 0);
+                        adapterL.setIndex(firstVisibleItem);
+                        mLvLeft.setSelection(firstVisibleItem);//适配器中自定义方法
+                        adapterL.notifyDataSetChanged();//一定要加
+
                     }
                 });
 
-//                /* 选中监听 */
-//                mLvLeft.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                        adapterL.changeSelected(position);//刷新
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> parent) {
-//
-//                    }
-//                });
             }
 
             @Override

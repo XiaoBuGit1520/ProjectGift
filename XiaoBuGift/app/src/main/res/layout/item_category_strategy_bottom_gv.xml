@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <!--Item间上下边距-->
+    <!--android:verticalSpacing="10dp"-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_category_strategy_bottom_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="品类"
+            android:textColor="#757575"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_category_strategy_bottom_class_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="查看全部"
+            android:textColor="#503C3C"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+    <com.xiaobu.com.xiaobugift.customize.MyGridView
+        android:id="@+id/gv_cg_strategy_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="2"
+        android:padding="1dp"
+        android:scrollbars="none"
+        android:verticalSpacing="1dp">
+
+    </com.xiaobu.com.xiaobugift.customize.MyGridView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_category_strategy_bottom_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="#757575"
+            android:text="风格"
+            android:textSize="13sp"/>
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:text="查看全部"-->
+        <!--android:textSize="13sp"/>-->
+
+    </RelativeLayout>
+
+    <com.xiaobu.com.xiaobugift.customize.MyGridView
+        android:id="@+id/gv_cg_strategy_mid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="2"
+        android:padding="1dp"
+        android:scrollbars="none"
+        android:verticalSpacing="1dp">
+
+    </com.xiaobu.com.xiaobugift.customize.MyGridView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_category_strategy_bottom_object"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="对象"
+
+            android:textColor="#757575"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_category_strategy_bottom_object_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="查看全部"
+            android:textColor="#503C3C"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+    <com.xiaobu.com.xiaobugift.customize.MyGridView
+        android:id="@+id/gv_cg_strategy_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="2"
+        android:padding="1dp"
+        android:scrollbars="none"
+        android:verticalSpacing="1dp">
+
+    </com.xiaobu.com.xiaobugift.customize.MyGridView>
+
+
+</LinearLayout>

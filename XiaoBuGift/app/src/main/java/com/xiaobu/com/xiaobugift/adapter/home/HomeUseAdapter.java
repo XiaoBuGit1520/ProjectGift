@@ -12,8 +12,6 @@ import com.squareup.picasso.Picasso;
 import com.xiaobu.com.xiaobugift.R;
 import com.xiaobu.com.xiaobugift.bean.home.HomeUseData;
 
-import java.util.List;
-
 /**
  * Created by xiaoBu on 16/11/23.
  * 首页--除精选Tab外其余Tab共用的Adapter
@@ -69,6 +67,7 @@ public class HomeUseAdapter extends BaseAdapter {
         holder.tvTitle.setText(data.getData().getItems().get(position).getTitle());//标题(大字体内容)
         holder.tvIntroduction.setText(data.getData().getItems().get(position).getIntroduction());//标题下方的介绍
         holder.tvColumnTitle.setText(data.getData().getItems().get(position).getColumn().getTitle());//eg:栏目 一个
+        holder.tvLove.setText(data.getData().getItems().get(position).getLikes_count() + "");//点赞数
 
         Picasso.with(context).load(data.getData().getItems().get(position).getAuthor().getAvatar_url()).into(holder.ivAuthorAvatarUrl);//作者头像
         Picasso.with(context).load(data.getData().getItems().get(position).getCover_image_url()).into(holder.ivCoverImageUrl);//大图片
@@ -82,6 +81,7 @@ public class HomeUseAdapter extends BaseAdapter {
 
         private TextView tvAuthorNickname, tvAuthorIntroduction, tvTitle, tvIntroduction, tvColumnTitle;
         private ImageView ivAuthorAvatarUrl, ivCoverImageUrl;
+        private TextView tvLove;
 
         public ViewHolder(View view) {
 
@@ -93,6 +93,8 @@ public class HomeUseAdapter extends BaseAdapter {
 
             ivAuthorAvatarUrl = (ImageView) view.findViewById(R.id.iv_home_use_author_avatar_url);
             ivCoverImageUrl = (ImageView) view.findViewById(R.id.iv_home_use_cover_image_url);
+
+            tvLove = (TextView) view.findViewById(R.id.tv_home_use_love);
         }
     }
 

@@ -63,14 +63,18 @@ public class HomeChoicenessAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tvTitle.setText(data.getData().getItems().get(position).getTitle());
-        holder.tvIntroduction.setText(data.getData().getItems().get(position).getIntroduction());
-        holder.tvAuthorNickname.setText(data.getData().getItems().get(position).getAuthor().getNickname());
-        holder.tvAuthorIntroduction.setText(data.getData().getItems().get(position).getAuthor().getIntroduction());
-        holder.tvColumnTitle.setText(data.getData().getItems().get(position).getColumn().getTitle());
+        if (data.getData().getItems().get(position).getId() != 1046846) {
 
-        Picasso.with(context).load(data.getData().getItems().get(position).getCover_image_url()).into(holder.ivCoverImageUrl);
-        Picasso.with(context).load(data.getData().getItems().get(position).getAuthor().getAvatar_url()).into(holder.ivAuthorAvatarUrl);
+            holder.tvTitle.setText(data.getData().getItems().get(position).getTitle());
+            holder.tvIntroduction.setText(data.getData().getItems().get(position).getIntroduction());
+            holder.tvAuthorNickname.setText(data.getData().getItems().get(position).getAuthor().getNickname());
+            holder.tvAuthorIntroduction.setText(data.getData().getItems().get(position).getAuthor().getIntroduction());
+            //holder.tvColumnTitle.setText(data.getData().getItems().get(position).getColumn().getTitle());
+            holder.tvLove.setText(data.getData().getItems().get(position).getLikes_count() + "");
+
+            Picasso.with(context).load(data.getData().getItems().get(position).getCover_image_url()).into(holder.ivCoverImageUrl);
+            Picasso.with(context).load(data.getData().getItems().get(position).getAuthor().getAvatar_url()).into(holder.ivAuthorAvatarUrl);
+        }
         return convertView;
     }
 
@@ -78,6 +82,7 @@ public class HomeChoicenessAdapter extends BaseAdapter {
 
         private TextView tvAuthorNickname, tvAuthorIntroduction, tvTitle, tvIntroduction, tvColumnTitle;
         private ImageView ivAuthorAvatarUrl, ivCoverImageUrl;
+        private TextView tvLove;
 
         public ViewHolder(View view) {
 
@@ -89,6 +94,8 @@ public class HomeChoicenessAdapter extends BaseAdapter {
 
             ivAuthorAvatarUrl = (ImageView) view.findViewById(R.id.iv_home_choice_author_avatar_url);
             ivCoverImageUrl = (ImageView) view.findViewById(R.id.iv_home_choice_cover_image_url);
+
+            tvLove = (TextView) view.findViewById(R.id.home_choice_love);
         }
     }
 }
